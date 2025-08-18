@@ -1,4 +1,4 @@
-const categoryID = 101;
+const categoryID = localStorage.getItem("catID");
 const apiURL = `https://japceibal.github.io/emercado-api/cats_products/${categoryID}.json`;
 
 fetch(apiURL)
@@ -9,7 +9,7 @@ fetch(apiURL)
       html += `
         <div class="product-card">
           <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
+          <a href="product-info.html?id=${product.id}">${product.name}</a>
           <p>${product.description}</p>
           <div class="price">${product.currency} ${product.cost}</div>
           <div class="sold">Vendidos: ${product.soldCount}</div>
