@@ -6,6 +6,13 @@ function showAlertError() {
   document.getElementById("alert-danger").classList.add("show");
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+        alert("Bienvenido nuevamente, " + usuarioGuardado);
+    }
+});
+
 
 document.getElementById("formRegistro").addEventListener("submit", function(event) {
   event.preventDefault(); 
