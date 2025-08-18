@@ -1,0 +1,177 @@
+/* ======================================
+   CONFIGURACIÓN GENERAL
+   Acá pusimos que el body y html ocupen toda la pantalla,
+   sin márgenes ni padding, y definimos la fuente Raleway
+   para todo el sitio. También quitamos el scroll de la página.
+====================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden; /* evitamos scroll en toda la página */
+}
+
+/* ======================================
+   FONDO CON BLUR
+   Acá pusimos la imagen de fondo y un filtro blur para
+   que quede difuminada, sin afectar los elementos
+   del formulario ni del footer.
+====================================== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.lr21.com.uy/wp-content/uploads/2017/08/ni%C3%B1os-estudiantes-primaria-uruguay.jpg") no-repeat center center fixed;
+  background-size: cover;
+  filter: blur(5px); /* desenfocamos solo la imagen */
+  z-index: -1; /* queda detrás de todo el contenido */
+}
+
+/* ======================================
+   CONTENEDOR PRINCIPAL DEL LOGIN
+   Acá pusimos que el formulario quede hacia la izquierda
+   y centrado verticalmente, con un poco de margen desde
+   el borde.
+====================================== */
+main.login {
+  display: flex;
+  justify-content: flex-start; /* alineado a la izquierda */
+  align-items: center; /* centrado vertical */
+  height: 100vh; /* ocupa toda la altura de la pantalla */
+  padding-left: 30px; /* separación del borde izquierdo */
+  box-sizing: border-box; /* padding no suma al ancho/alto */
+  position: relative;
+}
+
+/* ======================================
+   CAJA DEL FORMULARIO
+   Acá pusimos un fondo blanco semi-transparente,
+   bordes redondeados, sombra y un ancho máximo
+   para que se vea bien sobre la imagen difuminada.
+====================================== */
+#registro {
+  position: relative;
+  z-index: 1; /* sobre el blur */
+  background: rgba(255, 255, 255, 0.7); /* más transparente */
+  padding: 30px 20px;
+  border-radius: 12px; /* bordes redondeados */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* sombra sutil */
+  width: 350px;
+  max-height: 90%; /* nunca excede la altura de la pantalla */
+  text-align: center;
+  overflow: auto; /* si queda grande, scroll interno solo aquí */
+}
+
+/* ======================================
+   TÍTULO DEL FORMULARIO
+   Acá pusimos el tamaño de la letra, color y margen
+   para que se vea separado de los campos del form.
+====================================== */
+#registro h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #333;
+}
+
+/* ======================================
+   CAMPOS DEL FORMULARIO
+   Acá hicimos que los labels estén arriba de los inputs,
+   les pusimos tamaño y color, y definimos los inputs
+   con padding, borde redondeado y efecto de foco.
+====================================== */
+.formulario {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.formulario label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #555;
+  font-size: 13px;
+}
+
+.formulario input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px; /* bordes redondeados en los inputs */
+  font-size: 13px;
+  transition: border-color 0.3s;
+}
+
+.formulario input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5); /* resaltado azul al enfocar */
+}
+
+/* ======================================
+   BOTÓN DE REGISTRO
+   Acá pusimos el color azul, tamaño, borde redondeado
+   y un efecto hover más oscuro cuando el mouse pasa por encima.
+====================================== */
+#btn-form {
+  width: 100%;
+  padding: 10px;
+  background-color: #05726b;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#btn-form:hover {
+  background-color: #00635D; 
+}
+
+/* ======================================
+   FOOTER
+   Acá hicimos que quede fijo abajo de la pantalla,
+   con fondo semi-transparente y texto pequeño,
+   para que siempre se vea y no genere scroll.
+====================================== */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.8);
+  padding: 8px 20px;
+  text-align: center;
+  z-index: 2; /* sobre el blur */
+  font-size: 12px;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+footer a {
+  font-size: 12px;
+}
+
+/* Contenedor de título e icono */
+.titulo-con-icono {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  gap: 10px; /* espacio entre SVG y título */
+  justify-content: flex-start; /* hacia la izquierda */
+  margin-bottom: 20px; /* separa del formulario */
+}
+
+.titulo-con-icono h2 {
+  margin: 0; /* eliminamos margen por defecto del h2 */
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
