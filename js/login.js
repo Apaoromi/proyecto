@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
 document.getElementById("formRegistro").addEventListener("submit", function(event) {
   event.preventDefault(); 
 
