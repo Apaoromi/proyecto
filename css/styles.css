@@ -424,4 +424,77 @@ footer a {
   font-size: 20px;
   font-weight: 700;
   color: #333;
+} 
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #f4f4f4; /* Fondo gris claro */
+    color: #333;
+    line-height: 1.6;
+} 
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* Estilos para la lista de productos de Autos */
+#product-list {
+    display: grid;
+    /* Crea un grid de columnas que se ajustan automáticamente */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; /* Espacio entre las tarjetas de productos */
+    padding: 30px 0;
+}
+
+/* Estilos para cada tarjeta de producto */
+.product-card {
+    background-color: #99ced8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efecto de 'hover' para las tarjetas */
+.product-card:hover {
+    transform: translateY(-5px); /* Se eleva un poco */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más fuerte */
+}
+
+/* Estilos para la imagen del producto */
+.product-image {
+    width: 100%;
+    height: 200px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Recorta la imagen para que llene el espacio */
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.body-product::before{
+    /* Establece la imagen de fondo */
+    background-image: url("https://images.unsplash.com/photo-1528460033278-a6ba57020470?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+
+    /* Opciones adicionales para el fondo */
+    background-size: cover;       /* Ajusta la imagen para cubrir toda el área */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+    background-position: center;  /* Centra la imagen */
+} 
+#titulo-autos {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    font-size: 2.5em; /* Tamaño de fuente más grande */
+    color: #333; /* Color de texto oscuro */
+    text-align: center; /* Centra el texto */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
