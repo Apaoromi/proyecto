@@ -442,46 +442,129 @@ body {
 
 /* Estilos para la lista de productos de Autos */
 #product-list {
-    display: grid;
-    /* Crea un grid de columnas que se ajustan automáticamente */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px; /* Espacio entre las tarjetas de productos */
-    padding: 30px 0;
+    display: flex; /* Utiliza flexbox para la fila */
+    flex-wrap: nowrap; /* Evita que los productos salten a la siguiente línea */
+    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+    padding: 20px 0;
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin: 0 auto;
+    max-width: 1200px;
+} 
+
+/* 1. Estilo para el contenedor que envuelve el título y la imagen */
+.img-container {
+    position: relative; /* Esto es clave para posicionar el texto encima de la imagen */
+    width: 100%;
+}
+
+/* 2. Estilo para el div que contendrá la imagen de fondo */
+.imagen-ruta {
+    background-image: url('https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* REEMPLAZA esta URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 33.33vh; /* Un tercio de la altura de la ventana */
+    width: 100%;
+    display: block;
+}
+
+/* 3. Estilo para el título superpuesto */
+.img-titulo {
+    position: absolute; /* Saca el texto del flujo normal y lo posiciona en relación al contenedor padre */
+    top: 50%; /* Lo mueve a la mitad de la altura */
+    left: 50%; /* Lo mueve a la mitad del ancho */
+    transform: translate(-50%, -50%); /* Centra el texto perfectamente */
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 2.5em;
+    color: white; /* Para que el texto sea visible */
+    text-align: center;
+    width: 80%;
+    z-index: 1; /* Asegura que el texto esté encima de la imagen */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para mejor legibilidad */
 }
 
 /* Estilos para cada tarjeta de producto */
+/* Contenedor general de la tarjeta */
 .product-card {
-    background-color: #99ced8;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    color: inherit;
     display: flex;
     flex-direction: column;
+    text-align: center;
+    justify-content: center;
 }
 
-/* Efecto de 'hover' para las tarjetas */
+/* Efecto hover */
 .product-card:hover {
-    transform: translateY(-5px); /* Se eleva un poco */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más fuerte */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos para la imagen del producto */
+/* Imagen */
 .product-image {
     width: 100%;
-    height: 200px; /* Altura fija para todas las imágenes */
-    object-fit: cover; /* Recorta la imagen para que llene el espacio */
+    height: 200px;
+    object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 
+/* Contenido */
+.product-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+/* Nombre del auto */
+.product-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Detalles */
+.product-details {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    margin-bottom: 10px;
+}
+
+/* Precio */
+.product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #f15a29; /* naranja estilo referencia */
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+}
+.horizontal-container {
+            display: flex;
+            overflow-x: auto; /* Permite scroll horizontal si hay muchos autos */
+            padding: 30px 20px;
+            gap: 20px;
+            background-color: #f5f5f5;
+            min-height: 400px;
+            align-items: flex-start;
+        }
 
 .body-product::before{
     /* Establece la imagen de fondo */
-    background-image: url("https://images.unsplash.com/photo-1528460033278-a6ba57020470?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("https://images.unsplash.com/vector-1738163100328-4c65b6026807?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
 
     /* Opciones adicionales para el fondo */
     background-size: cover;       /* Ajusta la imagen para cubrir toda el área */
@@ -489,12 +572,15 @@ body {
     background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
     background-position: center;  /* Centra la imagen */
 } 
-#titulo-autos {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 700;
-    font-size: 2.5em; /* Tamaño de fuente más grande */
-    color: #333; /* Color de texto oscuro */
-    text-align: center; /* Centra el texto */
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+#titulo-autos  {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: 150;
+  font-weight: 500;
+  font-style: normal;
+ font-size: 2rem;
+  
 }
+
+  
+   
