@@ -6,13 +6,25 @@ fetch(apiURL)
   .then(data => {
     let html = "";
     data.products.forEach(product => {
+      // Crear el HTML para la descripción (que contiene el año)
+      const descriptionHTML = product.description ? `<span>${product.description}</span>` : '';
+      
       html += `
         <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
-          <a id="nomm" href="product-info.html?id=${product.id}">${product.name}</a>
-          <p>${product.description}</p>
-          <div class="price">${product.currency} ${product.cost}</div>
-          <div class="sold">Vendidos: ${product.soldCount}</div>
+          <img src="${product.image}" alt="${product.name}" class="product-image">
+          <div class="product-info">
+            <div class="product-title">
+              <a href="product-info.html?id=${product.id}" style="text-decoration:none; color:inherit;">
+                ${product.name}
+              </a>
+            </div>
+            <div class="product-details">
+              ${descriptionHTML}
+              <span>${product.fuel || "Nafta"}</span>
+              <span>Vendidos: ${product.soldCount}</span>
+            </div>
+            <div class="product-price">${product.currency} ${product.cost}</div>
+          </div>
         </div>
       `;
     });
