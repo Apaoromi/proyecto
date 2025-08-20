@@ -433,7 +433,10 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex: 1 1 300px;
+    max-width: 400px; 
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 /* Efecto hover */
@@ -478,6 +481,7 @@ body {
     border-bottom: 1px solid #ddd;
     padding: 8px 0;
     margin-bottom: 10px;
+    font-size: 0.8em;
 }
 
 /* Precio */
