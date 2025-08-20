@@ -523,3 +523,20 @@ body {
 
 }
 
+.inicio {
+  width: 100px;
+    padding: 10px;
+  background-color: #05726b;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inicio:hover {
+  color: white;
+  background-color: #00635D;
+}
