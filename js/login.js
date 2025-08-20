@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const usuarioGuardado = localStorage.getItem("usuario");
     if (usuarioGuardado) {
         alert("Bienvenido nuevamente, " + usuarioGuardado);
+        window.location.href = "index.html";
     }
 });
 
