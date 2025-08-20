@@ -540,3 +540,18 @@ body {
   color: white;
   background-color: #00635D;
 }
+
+.product-details {
+    display: flex;
+    flex-direction: column; /* Ahora los elementos están en columna */
+    align-items: flex-start; /* Alinea a la izquierda */
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+.product-details p {
+    margin: 2px 0; /* separa descripción de vendidos */
+}
