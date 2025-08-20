@@ -9,8 +9,10 @@ function showAlertError() {
 document.addEventListener("DOMContentLoaded", function() {
     const usuarioGuardado = localStorage.getItem("usuario");
     if (usuarioGuardado) {
+      setTimeout(function() {
         alert("Bienvenido nuevamente, " + usuarioGuardado);
-        window.location.href = "index.html";
+    window.location.href = "index.html";
+  }, 3500);
     }
 });
 
