@@ -28,6 +28,11 @@ document.getElementById("formRegistro").addEventListener("submit", function(even
     return;
   }
 
+  if ( password.length < 6) {
+    showAlertError();
+    return;
+  }
+
   if (password !== password2) {
     showAlertError();
     return;
