@@ -4,12 +4,15 @@
 .site-header {
   font-family: 'Verdana', serif !important;
 }
+
 .jumbotron .display-4 {
   font-weight: bold;
 }
+
 nav a {
   text-decoration: none;
 }
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -18,11 +21,13 @@ nav a {
   -ms-user-select: none;
   user-select: none;
 }
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
 }
+
 .jumbotron {
   height: 50vh;
   padding: 5em inherit;
@@ -35,49 +40,61 @@ nav a {
   color: black;
   font-weight: bold;
 }
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
+
 .jumbotron p:last-child {
   margin-bottom: 0;
 }
+
 .jumbotron-heading {
   font-weight: 300;
 }
+
 .jumbotron .container {
   max-width: 40rem;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   text-shadow: 1px 1px 2px grey;
 }
+
 .jumbotron .lead {
   font-size: 38px;
 }
+
 footer {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+
 footer p {
   margin-bottom: .25rem;
 }
+
 .site-header a {
   color: white;
   transition: ease-in-out color .15s;
 }
+
 .site-header .dropdown-menu a {
   color: black;
 }
+
 .dropzone {
   border: 2px dashed #0087F7;
   border-radius: 5px;
   background: white;
 }
+
 .img-fit {
   max-height: 100%;
 }
+
 .alert {
   position: fixed;
   top: 80px;
@@ -85,6 +102,7 @@ footer p {
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -93,14 +111,17 @@ footer p {
   top: 50%;
   left: 50%;
 }
+
 .cursor-active {
   cursor: pointer;
 }
+
 .left {
   float: left;
   padding: 4px;
   background-color: rgba(255, 255, 255, 0.5);
 }
+
 .lds-ring div {
   box-sizing: border-box;
   display: block;
@@ -113,29 +134,36 @@ footer p {
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #fff transparent transparent transparent;
 }
+
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
+
 .lds-ring div:nth-child(2) {
   animation-delay: -0.3s;
 }
+
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 .signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
+
 #spinner-wrapper {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
@@ -146,39 +174,47 @@ footer p {
   z-index: 1021;
   display: none;
 }
+
 main {
   min-height: calc(100vh - 210px);
 }
+
 a.custom-card,
 a.custom-card:hover {
   color: inherit;
   text-decoration: inherit;
 }
+
 .checked {
   color: orange;
 }
+
 #registro {
-  background-color: #fff; 
+  background-color: #fff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  margin: 50px auto; 
+  margin: 50px auto;
 }
+
 #registro h2 {
   text-align: center;
   margin-bottom: 20px;
   font-weight: 700;
 }
+
 .formulario {
   margin-bottom: 15px;
 }
+
 .formulario label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
 }
+
 .formulario input {
   width: 100%;
   padding: 10px;
@@ -186,10 +222,11 @@ a.custom-card:hover {
   border-radius: 8px;
   font-size: 14px;
 }
+
 #btn-form {
   width: 100%;
   padding: 12px;
-  background-color: #007bff; 
+  background-color: #007bff;
   color: rgb(31, 30, 30);
   border: none;
   border-radius: 8px;
@@ -198,23 +235,27 @@ a.custom-card:hover {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s ease-in-out;
 }
+
 #btn-form:hover {
   background-color: #0056b3;
   transform: scale(1.05);
   color: white;
 }
+
 /* ======================================
    CONFIGURACIÓN GENERAL
    Acá pusimos que el body y html ocupen toda la pantalla,
    sin márgenes ni padding, y definimos la fuente Raleway
    para todo el sitio. También quitamos el scroll de la página.
 ====================================== */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Raleway', sans-serif;
 }
+
 /* ======================================
    FONDO CON BLUR
    Acá pusimos la imagen de fondo y un filtro blur para
@@ -229,14 +270,20 @@ body::before {
   width: 100%;
   height: 100%;
 
+
   background: url("https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg") no-repeat center center fixed;
 
 
 
+
+
   background-size: cover;
-  filter: blur(5px); /* desenfocamos solo la imagen */
-  z-index: -1; /* queda detrás de todo el contenido */
+  filter: blur(5px);
+  /* desenfocamos solo la imagen */
+  z-index: -1;
+  /* queda detrás de todo el contenido */
 }
+
 /* ======================================
    CONTENEDOR PRINCIPAL DEL LOGIN
    Acá pusimos que el formulario quede hacia la izquierda
@@ -245,13 +292,19 @@ body::before {
 ====================================== */
 main.login {
   display: flex;
-  justify-content: flex-start; /* alineado a la izquierda */
-  align-items: center; /* centrado vertical */
-  height: 100vh; /* ocupa toda la altura de la pantalla */
-  padding-left: 30px; /* separación del borde izquierdo */
-  box-sizing: border-box; /* padding no suma al ancho/alto */
+  justify-content: flex-start;
+  /* alineado a la izquierda */
+  align-items: center;
+  /* centrado vertical */
+  height: 100vh;
+  /* ocupa toda la altura de la pantalla */
+  padding-left: 30px;
+  /* separación del borde izquierdo */
+  box-sizing: border-box;
+  /* padding no suma al ancho/alto */
   position: relative;
 }
+
 /* ======================================
    CAJA DEL FORMULARIO
    Acá pusimos un fondo blanco semi-transparente,
@@ -260,16 +313,23 @@ main.login {
 ====================================== */
 #registro {
   position: relative;
-  z-index: 1; /* sobre el blur */
-  background: rgba(255, 255, 255, 0.7); /* más transparente */
+  z-index: 1;
+  /* sobre el blur */
+  background: rgba(255, 255, 255, 0.7);
+  /* más transparente */
   padding: 30px 20px;
-  border-radius: 12px; /* bordes redondeados */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* sombra sutil */
+  border-radius: 12px;
+  /* bordes redondeados */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  /* sombra sutil */
   width: 350px;
-  max-height: 90%; /* nunca excede la altura de la pantalla */
+  max-height: 90%;
+  /* nunca excede la altura de la pantalla */
   text-align: center;
-  overflow: auto; /* si queda grande, scroll interno solo aquí */
+  overflow: auto;
+  /* si queda grande, scroll interno solo aquí */
 }
+
 /* ======================================
    TÍTULO DEL FORMULARIO
    Acá pusimos el tamaño de la letra, color y margen
@@ -281,6 +341,7 @@ main.login {
   font-size: 20px;
   color: #333;
 }
+
 /* ======================================
    CAMPOS DEL FORMULARIO
    Acá hicimos que los labels estén arriba de los inputs,
@@ -291,6 +352,7 @@ main.login {
   margin-bottom: 15px;
   text-align: left;
 }
+
 .formulario label {
   display: block;
   margin-bottom: 4px;
@@ -298,19 +360,24 @@ main.login {
   color: #555;
   font-size: 13px;
 }
+
 .formulario input {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #ccc;
-  border-radius: 6px; /* bordes redondeados en los inputs */
+  border-radius: 6px;
+  /* bordes redondeados en los inputs */
   font-size: 13px;
   transition: border-color 0.3s;
 }
+
 .formulario input:focus {
   border-color: #007bff;
   outline: none;
-  box-shadow: 0 0 5px rgba(0,123,255,0.5); /* resaltado azul al enfocar */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* resaltado azul al enfocar */
 }
+
 /* ======================================
    BOTÓN DE REGISTRO
    Acá pusimos el color azul, tamaño, borde redondeado
@@ -328,10 +395,12 @@ main.login {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s ease-in-out;
 }
+
 #btn-form:hover {
   background-color: #00635D;
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
+
 /* ======================================
    FOOTER
    Acá hicimos que quede fijo abajo de la pantalla,
@@ -343,193 +412,227 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   padding: 8px 20px;
   text-align: center;
-  z-index: 2; /* sobre el blur */
+  z-index: 2;
+  /* sobre el blur */
   font-size: 12px;
 }
+
 footer p {
   margin: 4px 0;
 }
+
 footer a {
   font-size: 12px;
 }
+
 /* Contenedor de título e icono */
 .titulo-con-icono {
   display: flex;
-  align-items: center; /* centra verticalmente */
-  gap: 10px; /* espacio entre SVG y título */
-  justify-content: flex-start; /* hacia la izquierda */
-  margin-bottom: 20px; /* separa del formulario */
+  align-items: center;
+  /* centra verticalmente */
+  gap: 10px;
+  /* espacio entre SVG y título */
+  justify-content: flex-start;
+  /* hacia la izquierda */
+  margin-bottom: 20px;
+  /* separa del formulario */
 }
+
 .titulo-con-icono h2 {
-  margin: 0; /* eliminamos margen por defecto del h2 */
+  margin: 0;
+  /* eliminamos margen por defecto del h2 */
   font-size: 20px;
   font-weight: 700;
   color: #333;
-} 
+}
+
 body {
-    font-family: 'Raleway', sans-serif;
-    background-color: #f4f4f4; /* Fondo gris claro */
-    color: #333;
-    line-height: 1.6;
-} 
+  font-family: 'Raleway', sans-serif;
+  background-color: #f4f4f4;
+  /* Fondo gris claro */
+  color: #333;
+  line-height: 1.6;
+}
+
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Estilos para la lista de productos de Autos */
 #product-list {
-    display: flex; /* Utiliza flexbox para la fila */
-    flex-wrap: nowrap; /* Evita que los productos salten a la siguiente línea */
-    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
-    padding: 20px 0;
-    gap: 20px; /* Espacio entre las tarjetas */
-    margin: 0 auto;
-    max-width: 1200px;
-} 
+  display: flex;
+  /* Utiliza flexbox para la fila */
+  flex-wrap: nowrap;
+  /* Evita que los productos salten a la siguiente línea */
+  overflow-x: auto;
+  /* Agrega una barra de desplazamiento horizontal si es necesario */
+  padding: 20px 0;
+  gap: 20px;
+  /* Espacio entre las tarjetas */
+  margin: 0 auto;
+  max-width: 1200px;
+}
 
 /* 1. Estilo para el contenedor que envuelve el título y la imagen */
 .img-container {
-    position: relative; /* Esto es clave para posicionar el texto encima de la imagen */
-    width: 100%;
+  position: relative;
+  /* Esto es clave para posicionar el texto encima de la imagen */
+  width: 100%;
 }
 
 /* 2. Estilo para el div que contendrá la imagen de fondo */
 .imagen-ruta {
-    background-image: url('https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* REEMPLAZA esta URL */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 33.33vh; /* Un tercio de la altura de la ventana */
-    width: 100%;
-    display: block;
+  background-image: url('https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  /* REEMPLAZA esta URL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 33.33vh;
+  /* Un tercio de la altura de la ventana */
+  width: 100%;
+  display: block;
 }
 
 /* 3. Estilo para el título superpuesto */
 .img-titulo {
-    position: absolute; /* Saca el texto del flujo normal y lo posiciona en relación al contenedor padre */
-    top: 50%; /* Lo mueve a la mitad de la altura */
-    left: 50%; /* Lo mueve a la mitad del ancho */
-    transform: translate(-50%, -50%); /* Centra el texto perfectamente */
-    font-family: 'Raleway', sans-serif;
-    font-weight: 900;
-    font-size: 2.5em;
-    color: white; /* Para que el texto sea visible */
-    text-align: center;
-    width: 80%;
-    z-index: 1; /* Asegura que el texto esté encima de la imagen */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para mejor legibilidad */
+  position: absolute;
+  /* Saca el texto del flujo normal y lo posiciona en relación al contenedor padre */
+  top: 50%;
+  /* Lo mueve a la mitad de la altura */
+  left: 50%;
+  /* Lo mueve a la mitad del ancho */
+  transform: translate(-50%, -50%);
+  /* Centra el texto perfectamente */
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900;
+  font-size: 2.5em;
+  color: white;
+  /* Para que el texto sea visible */
+  text-align: center;
+  width: 80%;
+  z-index: 1;
+  /* Asegura que el texto esté encima de la imagen */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Sombra para mejor legibilidad */
 }
 
 /* Estilos para cada tarjeta de producto */
 /* Contenedor general de la tarjeta */
 .product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: space-between;
-    flex: 1 1 300px;
-    max-width: 400px; 
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  flex: 1 1 300px;
+  max-width: 400px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 /* Efecto hover */
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Imagen */
 .product-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
 }
 
 /* Contenido */
 .product-info {
-    padding: 15px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Nombre del auto */
 .product-title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 /* Detalles */
 .product-details {
-    font-size: 0.9rem;
-    color: #666;
-    display: flex;
-    justify-content: space-around;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 8px 0;
-    margin-bottom: 10px;
-    font-size: 0.8em;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0;
+  margin-bottom: 10px;
+  font-size: 0.8em;
 }
 
 /* Precio */
 .product-price {
-    font-size: 1.1rem;
-    font-weight: bold;
-    background-color: #f15a29; /* naranja estilo referencia */
-    color: #fff;
-    padding: 8px;
-    border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #f15a29;
+  /* naranja estilo referencia */
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
 }
+
 .horizontal-container {
-            display: flex;
-            overflow-x: auto; /* Permite scroll horizontal si hay muchos autos */
-            padding: 30px 20px;
-            gap: 20px;
-            background-color: #f5f5f5;
-            min-height: 400px;
-            align-items: flex-start;
-        }
+  display: flex;
+  overflow-x: auto;
+  /* Permite scroll horizontal si hay muchos autos */
+  padding: 30px 20px;
+  gap: 20px;
+  background-color: #f5f5f5;
+  min-height: 400px;
+  align-items: flex-start;
+}
 
-.body-product::before{
-    /* Establece la imagen de fondo */
-    background-image: url("https://images.unsplash.com/vector-1738163100328-4c65b6026807?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+.body-product::before {
+  /* Establece la imagen de fondo */
+  background-image: url("https://images.unsplash.com/vector-1738163100328-4c65b6026807?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
 
-    /* Opciones adicionales para el fondo */
-    background-size: cover;       /* Ajusta la imagen para cubrir toda el área */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
-    background-position: center;  /* Centra la imagen */
-} 
+  /* Opciones adicionales para el fondo */
+  background-size: cover;
+  /* Ajusta la imagen para cubrir toda el área */
+  background-repeat: no-repeat;
+  /* Evita que la imagen se repita */
+  background-attachment: fixed;
+  /* Mantiene la imagen fija al hacer scroll */
+  background-position: center;
+  /* Centra la imagen */
+}
 
-#titulo-autos  {
+#titulo-autos {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: 150;
   font-weight: 500;
   font-style: normal;
- font-size: 2rem;
+  font-size: 2rem;
 
 }
 
 .inicio {
   width: 100px;
-    padding: 10px;
+  padding: 10px;
   background-color: #05726b;
   border: none;
   border-radius: 30px;
@@ -546,17 +649,60 @@ body {
 }
 
 .product-details {
-    display: flex;
-    flex-direction: column; /* Ahora los elementos están en columna */
-    align-items: flex-start; /* Alinea a la izquierda */
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 8px 0;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    color: #666;
+  display: flex;
+  flex-direction: column;
+  /* Ahora los elementos están en columna */
+  align-items: flex-start;
+  /* Alinea a la izquierda */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #666;
 
 }
+
 .product-details p {
-    margin: 2px 0; /* separa descripción de vendidos */
+  margin: 2px 0;
+  /* separa descripción de vendidos */
+}
+
+.btn-inicio {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  background-color: #05726b;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+.btn-inicio:hover {
+  background-color: #00635D;
+  transform: scale(1.1);
+}
+
+.btn-inicio,
+.btn-inicio:visited,
+.btn-inicio:hover,
+.btn-inicio:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+p a{
+  text-decoration: none;
+}
+
+#footer-div {
+  align-items: center; 
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
 }
