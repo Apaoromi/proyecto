@@ -7,17 +7,23 @@ function showAlertError() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const usuarioGuardado = localStorage.getItem("usuario");
-    if (usuarioGuardado) {
-      setTimeout(function() {
-        alert("Bienvenido nuevamente, " + usuarioGuardado);
-    window.location.href = "index.html";
-  }, 3500);
-    }
+  const usuarioGuardado = localStorage.getItem("usuario");
+
+
+  if (window.location.pathname.includes("index.html") && !usuarioGuardado) {
+    window.location.href = "login.html";
+  }
+
+
+  if (window.location.pathname.includes("login.html") && usuarioGuardado) {
+    setTimeout(function() {
+      alert("Bienvenido nuevamente, " + usuarioGuardado);
+      window.location.href = "index.html";
+    }, 1500);
+  }
 });
 
-
-document.getElementById("formRegistro").addEventListener("submit", function(event) {
+document.getElementById("formRegistro")?.addEventListener("submit", function(event) {
   event.preventDefault(); 
 
   const nombre = document.getElementById("nombre").value.trim();
@@ -30,7 +36,7 @@ document.getElementById("formRegistro").addEventListener("submit", function(even
     return;
   }
 
-  if ( password.length < 6) {
+  if (password.length < 6) {
     showAlertError();
     return;
   }
@@ -40,12 +46,8 @@ document.getElementById("formRegistro").addEventListener("submit", function(even
     return;
   }
 
-
   localStorage.setItem("usuario", usuario);
-
-
   showAlertSuccess();
-
 
   setTimeout(function() {
     window.location.href = "index.html";
