@@ -1,5 +1,5 @@
-const apiURL = "https://japceibal.github.io/emercado-api/cats_products/101.json"; 
-// Cambia esta URL según la categoría/productos que quieras cargar
+const categoryID = localStorage.getItem("catID");
+const apiURL = `https://japceibal.github.io/emercado-api/cats_products/${categoryID}.json`;
 
 fetch(apiURL)
   .then(response => response.json())
