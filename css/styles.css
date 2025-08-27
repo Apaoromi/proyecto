@@ -499,7 +499,26 @@ body {
   padding: 8px; 
   border-radius: 5px; 
 } 
+/*Hacer el diseño Responsivo */  
 
+
+
+@media (max-width: 768px) {
+.product-list {
+
+flex-direction: column; /* Apila los elementos verticalmente */
+
+align-items: center; /* Centra los elementos */
+
+}
+.product-image {
+
+width: 90%; /* Hace que cada producto ocupe casi todo el ancho de la pantalla */
+margin-bottom: 20px; /* Agrega espacio entre los productos apilados */
+
+ }
+
+}
 .horizontal-container { 
   display: flex; 
   overflow-x: auto; 
