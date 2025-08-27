@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-const usuarioGuardado = localStorage.getItem("usuario");
+
   const linkUsuario = document.getElementById("link-usuario");
 
 
