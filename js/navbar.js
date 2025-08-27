@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const usuarioGuardado = localStorage.getItem("usuario");
   const linkUsuario = document.getElementById("link-usuario");
 
+
   if (usuarioGuardado && linkUsuario) {
     // Cambiar texto y comportamiento
     linkUsuario.textContent = usuarioGuardado + " (Salir)";

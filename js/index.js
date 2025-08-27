@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
     const usuarioGuardado = localStorage.getItem("usuario");
 
-    // Si no hay usuario guardado -> mandarlo al login
+    // Solo redirigir si intentan entrar al index sin usuario
     if (!usuarioGuardado) {
+
         window.location.href = "login.html";
+        return; 
     }
 
-    // ---- Lo que ya tenías ----
+    
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html";
@@ -19,4 +21,20 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("catID", 103);
         window.location = "products.html";
     });
+
+
+const usuarioGuardado = localStorage.getItem("usuario");
+  const linkUsuario = document.getElementById("link-usuario");
+
+
+  if (usuarioGuardado && linkUsuario) {
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado + " (Salir)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("usuario");
+      window.location.href = "login.html";
+    });
+  }
 });
