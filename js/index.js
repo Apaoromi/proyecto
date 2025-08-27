@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-
   const linkUsuario = document.getElementById("link-usuario");
 
 

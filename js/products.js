@@ -35,4 +35,22 @@ fetch(apiURL)
   .catch(error => {
     console.error("Error cargando productos:", error);
     document.getElementById("product-list").innerHTML = "<p>No se pudieron cargar los productos.</p>";
-  });
+
+
+
+
+  const usuarioGuardado = localStorage.getItem("usuario");  
+  const linkUsuario = document.getElementById("link-usuario");
+
+
+  if (usuarioGuardado && linkUsuario) {
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado + " (Salir)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("usuario");
+      window.location.href = "login.html";
+    });
+  }
+});
