@@ -1,20 +1,27 @@
-const categoryID = localStorage.getItem("catID");
-const apiURL = `https://japceibal.github.io/emercado-api/cats_products/${categoryID}.json`;
-
-// Actualizar el banner según la categoría
 document.addEventListener("DOMContentLoaded", function() {
+  const categoryID = localStorage.getItem("catID");
+  const apiURL = `https://japceibal.github.io/emercado-api/cats_products/${categoryID}.json`;
+
+  let productos = [];
+
   const imgContainerTitle = document.querySelector(".img-titulo");
   const imgContainerDiv = document.querySelector(".imagen-ruta");
   const titulo = document.getElementById("titulo");
+  const btnfiltrar = document.getElementById("filtrar");
+  const btnlimpiar = document.getElementById("limpiar-filtro");
+  const precioMin = document.getElementById("precio-min");
+  const precioMax = document.getElementById("precio-max");
+  const buscador = document.getElementById('buscador')
 
+  // Actualizar banner
   if (categoryID == 101) {
     imgContainerTitle.textContent = "A un solo click del auto de tus sueños ...";
     imgContainerDiv.style.backgroundImage = "url('img/cars_index.jpg')";
-    titulo.textContent = " Vehiculos disponibles";
+    titulo.textContent = "Vehículos disponibles";
   } else if (categoryID == 102) {
     imgContainerTitle.textContent = "Encuentra los juguetes más divertidos para todas las edades ...";
     imgContainerDiv.style.backgroundImage = "url('img/toys_index.jpg')";
-    titulo.textContent = "juegetes disponibles";
+    titulo.textContent = "Juguetes disponibles";
   } else if (categoryID == 103) {
     imgContainerTitle.textContent = "Descubrí muebles para tu hogar a un click ...";
     imgContainerDiv.style.backgroundImage = "url('img/furniture_index.jpg')";
@@ -23,12 +30,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   imgContainerDiv.style.backgroundSize = "cover";
   imgContainerDiv.style.backgroundPosition = "center";
-});
 
-fetch(apiURL)
-  .then(response => response.json())
-  .then(data => {
-    const html = data.products.map(product => {
+  // Función para mostrar productos
+  function mostrarProductos(lista) {
+    const html = lista.map(product => {
       const descriptionHTML = product.description 
         ? `<p class="mb-1">${product.description}</p>` 
         : '';
@@ -39,7 +44,7 @@ fetch(apiURL)
           <div class="product-info">
             <div>
               <div class="product-title">
-                <a href="product-info.html?id=${product.id}" style="text-decoration:none; color:inherit;">
+                <a href="product-info.html" onclick="setProdID(${product.id})" style="text-decoration:none; color:inherit;">
                   ${product.name}
                 </a>
               </div>
@@ -55,8 +60,50 @@ fetch(apiURL)
     }).join('');
 
     document.getElementById("product-list").innerHTML = html;
-  })
-  .catch(error => {
-    console.error("Error cargando productos:", error);
-    document.getElementById("product-list").innerHTML = "<p>No se pudieron cargar los productos.</p>";
+  }
+
+  // Cargar productos
+  fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+      productos = data.products;
+      mostrarProductos(productos);
+    })
+    .catch(error => {
+      console.error("Error cargando productos:", error);
+      document.getElementById("product-list").innerHTML = "<p>No se pudieron cargar los productos.</p>";
+    });
+
+  // Filtrar por precio
+  btnfiltrar.addEventListener("click", function() {
+    const min = parseInt(precioMin.value) || 0;
+    const max = parseInt(precioMax.value) || Infinity;
+
+    if (min > max) {
+      alert("El precio mínimo no puede ser mayor al precio máximo.");
+      return;
+    }
+
+    const filtrados = productos.filter(product => 
+      product.cost >= min && product.cost <= max
+    );
+
+    mostrarProductos(filtrados);
   });
+
+  // Limpiar filtro
+  btnlimpiar.addEventListener("click", function() {
+    precioMin.value = "";
+    precioMax.value = "";
+    mostrarProductos(productos);
+  });
+});
+
+
+
+
+// Guardar ID de producto
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html";
+}
