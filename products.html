@@ -40,6 +40,22 @@
       </div>
     </div>
   </nav>
+  <!-- BUSCADOR  -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="input-group mb-3">
+                    <input type="search" id="searchInput" class="form-control" placeholder="Buscar productos por nombre o descripción..." aria-label="Buscar productos">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+ <main class="container mt-4">
+    <script src="js/bootstrap.bundle.min.js"></script>
+
   <div class="img-container">
     <h2 class="img-titulo">A un solo click del auto de tus sueños ...</h2>
     <div class="imagen-ruta"></div>
@@ -72,6 +88,110 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/products.js"></script>
+ <script>
+    // Función para inicializar el buscador
+    function initSearch() {
+      const searchInput = document.getElementById('searchInput');
+      const noResults = document.getElementById('no-results');
+      let productContainers = [];
+      
+      // Esperar a que los productos se carguen
+      const checkProductsLoaded = setInterval(() => {
+        // Buscar contenedores de productos - ajustado según tu estructura
+        productContainers = document.querySelectorAll('.product-container, .list-group-item, .card, [class*="product"]');
+        
+        // Si no encontramos contenedores, buscar por la estructura de contenido
+        if (productContainers.length === 0) {
+          // Buscar elementos que contengan títulos h1, h2, h3, h4 (que parecen ser tus productos)
+          const headings = document.querySelectorAll('h1, h2, h3, h4');
+          headings.forEach(heading => {
+            // Si el heading tiene texto similar a un producto
+            if (heading.textContent && heading.textContent.length > 3 && 
+                !heading.textContent.includes('Vehículos disponibles')) {
+              // Encontrar el contenedor padre que probablemente contiene el producto completo
+              let container = heading.parentElement;
+              if (container && !container.classList.contains('product-marked')) {
+                container.classList.add('product-container', 'product-marked');
+                productContainers = document.querySelectorAll('.product-container');
+              }
+            }
+          });
+        }
+        
+        if (productContainers.length > 0) {
+          clearInterval(checkProductsLoaded);
+          console.log('Productos encontrados:', productContainers.length);
+          setupSearch();
+        }
+      }, 500);
+      
+      function setupSearch() {
+        searchInput.addEventListener('input', function() {
+          const searchText = this.value.toLowerCase().trim();
+          let hasResults = false;
+          
+          productContainers.forEach(function(container) {
+            // Buscar todos los elementos de texto dentro del contenedor
+            const textContent = container.textContent.toLowerCase();
+            
+            // Verificar si coincide con la búsqueda
+            if (searchText === '' || textContent.includes(searchText)) {
+              container.style.display = 'block';
+              hasResults = true;
+              
+              // Resaltar texto si es necesario
+              if (searchText !== '') {
+                highlightTextInContainer(container, searchText);
+              }
+            } else {
+              container.style.display = 'none';
+            }
+          });
+          
+          // Mostrar u ocultar mensaje de no resultados
+          if (!hasResults && searchText !== '') {
+            noResults.style.display = 'block';
+          } else {
+            noResults.style.display = 'none';
+          }
+        });
+      }
+      
+      // Función para resaltar texto en todo el contenedor
+      function highlightTextInContainer(container, searchText) {
+        const walker = document.createTreeWalker(
+          container, 
+          NodeFilter.SHOW_TEXT, 
+          null, 
+          false
+        );
+        
+        let node;
+        const nodes = [];
+        
+        while (node = walker.nextNode()) {
+          if (node.textContent.toLowerCase().includes(searchText)) {
+            nodes.push(node);
+          }
+        }
+        
+        nodes.forEach(node => {
+          const span = document.createElement('span');
+          span.innerHTML = node.textContent.replace(
+            new RegExp(`(${searchText})`, 'gi'),
+            '<span class="search-highlight">$1</span>'
+          );
+          node.parentNode.replaceChild(span, node);
+        });
+      }
+    }
+    
+    // Iniciar el buscador cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSearch);
+    } else {
+      initSearch();
+    }
+  </script>
 </body>
-
 </html>
