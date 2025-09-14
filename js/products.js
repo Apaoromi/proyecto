@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const max = parseInt(precioMax.value) || Infinity;
 
     if (min > max) {
-      alert("El precio mínimo no puede ser mayor al precio máximo.");
+      alert("El precio mínimo no puede ser mayor al precio máximo");
       return;
     }
 
