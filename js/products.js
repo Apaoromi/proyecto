@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const btnlimpiar = document.getElementById("limpiar-filtro");
   const precioMin = document.getElementById("precio-min");
   const precioMax = document.getElementById("precio-max");
-  const buscador = document.getElementById('buscador')
+  const buscador = document.getElementById('buscador');
+  const btnOrdenarMenor = document.getElementById("btn-ordenMen");
+  const btnOrdenarMayor = document.getElementById("btn-ordenMay");
 
   // Actualizar banner
   if (categoryID == 101) {
@@ -97,9 +99,19 @@ document.addEventListener("DOMContentLoaded", function() {
     precioMax.value = "";
     mostrarProductos(productos);
   });
+
+  btnOrdenarMenor.addEventListener("click", function() {
+    const orrdenadosMenor = productos.sort((a , b) => a.cost - b.cost);
+    mostrarProductos(orrdenadosMenor);
+  });
+
+  btnOrdenarMayor.addEventListener("click", function() {
+    const orrdenadosMayor = productos.sort((a , b) => b.cost - a.cost);
+    mostrarProductos(orrdenadosMayor);
+  });
+
+
 });
-
-
 
 
 // Guardar ID de producto
