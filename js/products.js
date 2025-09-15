@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", function() {
     mostrarProductos(filtrados);
   });
 
+  
+
   // Limpiar filtro
   btnlimpiar.addEventListener("click", function() {
     precioMin.value = "";
