@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const precioMin = document.getElementById("precio-min");
   const precioMax = document.getElementById("precio-max");
   const buscador = document.getElementById('buscador');
+  const btnBuscar = document.getElementById('btn-Buscar');
   const btnOrdenarMenor = document.getElementById("btn-ordenMen");
   const btnOrdenarMayor = document.getElementById("btn-ordenMay");
 
@@ -101,14 +102,25 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   btnOrdenarMenor.addEventListener("click", function() {
-    const orrdenadosMenor = productos.sort((a , b) => a.cost - b.cost);
-    mostrarProductos(orrdenadosMenor);
+    const ordenadosMenor = productos.sort((a , b) => a.cost - b.cost);
+    mostrarProductos(ordenadosMenor);
   });
 
   btnOrdenarMayor.addEventListener("click", function() {
-    const orrdenadosMayor = productos.sort((a , b) => b.cost - a.cost);
-    mostrarProductos(orrdenadosMayor);
+    const ordenadosMayor = productos.sort((a , b) => b.cost - a.cost);
+    mostrarProductos(ordenadosMayor);
   });
+
+  btnBuscar.addEventListener("click", function() {
+  const palabra = buscador.value.toLowerCase().trim();
+
+  const resultado = productos.filter(product => 
+    product.name.toLowerCase().includes(palabra)
+  );
+
+  mostrarProductos(resultado);
+});
+
 
 
 });
