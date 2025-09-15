@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,39 +42,92 @@
       </div>
     </div>
   </nav>
-
-  <div id="barra-buscador">
-    <input type="text" id="buscador" placeholder="Nombre">
-    <button id="btn-Buscar">Lupa</button>
-  </div>
-
+  
+  
   <div class="img-container">
     <h2 class="img-titulo">A un solo click del auto de tus sueños ...</h2>
     <div class="imagen-ruta"></div>
-</div>
-
-<div class="filtro">
-  <div>
-    <button id="btn-ordenMay" class="orden-acendente">Mayor precio</button>
-    <button id="btn-ordenMen" class="orden-decendente">Menor precio</button>
   </div>
-  <div>
-    <label for="precio-min">Precio mínimo:</label>
-    <input type="number" id="precio-min" placeholder="Mínimo">
 
-    <label for="precio-max">Precio máximo:</label>
-    <input type="number" id="precio-max" placeholder="Máximo">
+  
 
-    <button id="filtrar">Filtrar</button>
-    <button id="limpiar-filtro">Limpiar</button>
+
+
+  <!--
+  <div id="barra-buscador">
+    <input type="text" id="buscador" placeholder="Nombre">
+    <button id="btn-Buscar">Lupa</button>
+  </div>  
+  <div class="filtro">
+    <div>
+      <button id="btn-ordenMay" class="orden-acendente">Mayor precio</button>
+      <button id="btn-ordenMen" class="orden-decendente">Menor precio</button>
+    </div>
+    <div>
+      <label for="precio-min">Precio mínimo:</label>
+      <input type="number" id="precio-min" placeholder="Mínimo">
+      
+      <label for="precio-max">Precio máximo:</label>
+      <input type="number" id="precio-max" placeholder="Máximo">
+      
+      <button id="filtrar">Filtrar</button>
+      <button id="limpiar-filtro">Limpiar</button>
+    </div>
   </div>
-</div>
+  -->
 
   
   <main class="pb-5 container">
     <div class="container">
        <h1 id="titulo">Vehículos disponibles</h1>
        <hr>
+       
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Filtros</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Menú -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button id="btn-ordenMay" class="btn btn-outline-success nav-link mb-2 mb-lg-0">
+            Mayor precio
+          </button>
+        </li>
+        <li class="nav-item">
+          <button id="btn-ordenMen" class="btn btn-outline-danger nav-link mb-2 mb-lg-0">
+            Menor precio
+          </button>
+        </li>
+      </ul>
+
+      <!-- Barra de búsqueda -->
+      <div id="barra-buscador" class="d-flex me-3">
+        <input type="text" id="buscador" class="form-control me-2" placeholder="Nombre">
+        <button id="btn-Buscar" class="btn btn-outline-primary">
+          <i class="bi bi-search">🔍</i>
+        </button>
+      </div>
+
+      <!-- Filtros de precio -->
+      <div class="d-flex align-items-center">
+        <input type="number" id="precio-min" class="form-control me-2" placeholder="Mínimo">
+        <input type="number" id="precio-max" class="form-control me-2" placeholder="Máximo">
+
+        <button id="filtrar" class="btn btn-primary me-2">Filtrar</button>
+        <button id="limpiar-filtro" class="btn btn-secondary">Limpiar</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
   <div id="product-list" class="product-list"></div>
       </div>
     </div>
@@ -98,6 +152,7 @@
 <script src="js/init.js"></script>
 <script src="js/products.js"></script>
 <script src="js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
 
