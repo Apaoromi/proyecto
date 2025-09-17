@@ -646,3 +646,54 @@ p a {
   display: flex;
   justify-content: space-between;
 }
+
+/* CSS para product.info */
+
+/* Contenedor general centrado */
+.product-detail {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.detail-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+/* Contenedor de imagen */
+.detail-image-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.detail-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Información del vehículo */
+.detail-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.detail-info strong {
+  color: #333;
+}
+
+/* Opcional: colores suaves para cada tipo de info */
+.detail-price { color: #2a9d8f; }
+.detail-sold { color: #e76f51; }
+.detail-category { color: #264653; }
+.detail-description { color: #555; }
+
