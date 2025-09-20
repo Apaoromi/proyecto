@@ -113,6 +113,12 @@ document.addEventListener("DOMContentLoaded", function() {
     mostrarProductos(ordenadosMayor);
   });
 
+  const btnOrdenarRelevancia = document.getElementById("btn-ordenRel");
+btnOrdenarRelevancia.addEventListener("click", function() {
+  const ordenadosRelevancia = [...productos].sort((a, b) => b.soldCount - a.soldCount);
+  mostrarProductos(ordenadosRelevancia);
+});
+
   btnBuscar.addEventListener("click", function() {
   const palabra = buscador.value.toLowerCase().trim();
 
