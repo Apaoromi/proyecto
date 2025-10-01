@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("product-list").innerHTML = html;
   }
 
-  // Cargar productos
+
   fetch(apiURL)
     .then(response => response.json())
     .then(data => {
