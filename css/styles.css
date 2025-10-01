@@ -647,53 +647,136 @@ p a {
   justify-content: space-between;
 }
 
-/* CSS para product.info */
-
-/* Contenedor general centrado */
-.product-detail {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+/* Contenedor principal para producto + rating */
+.product-page {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Para que en pantallas pequeñas se acomode abajo */
+  width: 100%;
   box-sizing: border-box;
+  padding: 20px;
   font-family: Arial, sans-serif;
+}
+
+/* Contenedor producto (izquierda) */
+.product-detail {
+  flex: 1 1 45%; /* ocupa aprox 45% del ancho */
+  padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
-/* Título */
+/* Título producto */
 .detail-title {
   text-align: center;
   font-size: 24px;
   margin-bottom: 15px;
 }
 
-/* Contenedor de imagen */
+/* Imagen producto */
 .detail-image-container {
   text-align: center;
   margin-bottom: 15px;
 }
 
 .detail-image {
-  max-width: 50%;
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-/* Información del vehículo */
+/* Info producto */
 .detail-info p {
   margin: 8px 0;
   font-size: 16px;
 }
 
-.detail-info strong {
-  color: #333;
-}
+.detail-info strong { color: #333; }
 
-/* Opcional: colores suaves para cada tipo de info */
 .detail-price { color: #2a9d8f; }
 .detail-sold { color: #e76f51; }
 .detail-category { color: #264653; }
 .detail-description { color: #555; }
 
+/* --------------------------- */
+/* Contenedor rating (derecha) */
+.product-rating {
+  flex: 1 1 45%; /* ocupa aprox 45% del ancho */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Título rating */
+.rating-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Estrellas */
+.rating-stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.rating-stars input {
+  display: none;
+}
+
+.rating-stars label {
+  font-size: 2em;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating-stars input:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+  color: gold;
+}
+
+/* Comentario */
+.rating-comment {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  resize: vertical;
+}
+
+/* Botón */
+.rating-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.rating-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Resultado */
+.rating-result {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 6px;
+  font-size: 16px;
+}
