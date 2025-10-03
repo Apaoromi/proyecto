@@ -436,7 +436,7 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease,scale 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -447,6 +447,7 @@ body {
 
 .product-card:hover {
   transform: translateY(-5px);
+  /*transform: scale(1.02);*/
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -742,7 +743,7 @@ p a {
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
   color: gold;
-  transform: scale(1.2);
+  transform: scale(2.2);
 }
 
 /* Comentario */
@@ -800,8 +801,7 @@ p a {
 
 #btn-comentario {
   display: block;
-  margin: 0 auto;
-  width: 30%;
+  margin: 0 auto; 
   border: none;
   border-radius: 6px;
   background-color: orange;

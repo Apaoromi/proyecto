@@ -34,23 +34,20 @@ document.addEventListener("DOMContentLoaded", function() {
   imgContainerDiv.style.backgroundSize = "cover";
   imgContainerDiv.style.backgroundPosition = "center";
 
-  // Función para mostrar productos
-  function mostrarProductos(lista) {
-    const html = lista.map(product => {
-      const descriptionHTML = product.description 
-        ? `<p class="mb-1">${product.description}</p>` 
-        : '';
+ // Función para mostrar productos
+function mostrarProductos(lista) {
+  const html = lista.map(product => {
+    const descriptionHTML = product.description 
+      ? `<p class="mb-1">${product.description}</p>` 
+      : '';
 
-      return `
+    return `
+      <a href="product-info.html" onclick="setProdID(${product.id})" style="text-decoration:none; color:inherit;">
         <div class="product-card">
           <img src="${product.image}" alt="${product.name}" class="product-image">
           <div class="product-info">
             <div>
-              <div class="product-title">
-                <a href="product-info.html" onclick="setProdID(${product.id})" style="text-decoration:none; color:inherit;">
-                  ${product.name}
-                </a>
-              </div>
+              <div class="product-title">${product.name}</div>
               <div class="product-details">
                 ${descriptionHTML}
                 <p>Vendidos: ${product.soldCount}</p>
@@ -59,11 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="product-price">${product.currency} ${product.cost}</div>
           </div>
         </div>
-      `;
-    }).join('');
+      </a>
+    `;
+  }).join('');
 
-    document.getElementById("product-list").innerHTML = html;
-  }
+  document.getElementById("product-list").innerHTML = html;
+}
+
 
 
   fetch(apiURL)
