@@ -118,7 +118,7 @@ btnOrdenarRelevancia.addEventListener("click", function() {
   mostrarProductos(ordenadosRelevancia);
 });
 
-  btnBuscar.addEventListener("click", function() {
+ /* btnBuscar.addEventListener("click", function() {
   const palabra = buscador.value.toLowerCase().trim();
 
   const resultado = productos.filter(product => 
@@ -128,8 +128,16 @@ btnOrdenarRelevancia.addEventListener("click", function() {
 
   mostrarProductos(resultado);
 });
-
-
+*/
+  buscador.addEventListener("input", () => {
+  const palabra = buscador.value.toLowerCase().trim();
+  const filtrados = productos.filter(p =>
+    p.name.toLowerCase().includes(palabra) ||
+    p.description.toLowerCase().includes(palabra)
+  );
+  
+  mostrarProductos(filtrados);
+});
 
 });
 
