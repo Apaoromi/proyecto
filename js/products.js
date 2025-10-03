@@ -122,7 +122,8 @@ btnOrdenarRelevancia.addEventListener("click", function() {
   const palabra = buscador.value.toLowerCase().trim();
 
   const resultado = productos.filter(product => 
-    product.name.toLowerCase().includes(palabra)
+    product.name.toLowerCase().includes(palabra) ||
+    product.description.toLowerCase().includes(palabra)
   );
 
   mostrarProductos(resultado);
