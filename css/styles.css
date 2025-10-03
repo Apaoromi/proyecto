@@ -743,7 +743,7 @@ p a {
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
   color: gold;
-  transform: scale(2.2);
+  transform: scale(1.2);
 }
 
 /* Comentario */
