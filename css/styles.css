@@ -742,6 +742,7 @@ p a {
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
   color: gold;
+  transform: scale(1.2);
 }
 
 /* Comentario */
@@ -779,4 +780,37 @@ p a {
   background-color: #e9ecef;
   border-radius: 6px;
   font-size: 16px;
+}
+
+
+
+.comentario{
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+
+#comentario-text {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px; /* separación con el botón */
+}
+
+#btn-comentario {
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+  border: none;
+  border-radius: 6px;
+  background-color: orange;
+  transition: background-color .3s, color .3s, transform .2s ease-in-out;
+}
+
+#btn-comentario:hover {
+  background-color: darkorange;
+  cursor: pointer;
+  transform: scale(1.05);
+  color: white
 }

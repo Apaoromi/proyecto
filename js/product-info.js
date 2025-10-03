@@ -15,7 +15,11 @@ const container = document.getElementById("container-info");
 // Contenedor de comentarios
 const comentariosContainer = document.getElementById("lista-comentarios");
 
+const btnEnviar = document.getElementById("btn-comentario");
+
 let comentarios = [];
+
+
 
 // ===============================
 // 1) Cargar la info del producto
@@ -25,7 +29,7 @@ fetch(apiURL)
   .then(product => {
     const html = `
       <div class="product-page">
-        <!-- Bloque de la izquierda -->
+       
         <div class="product-detail">
           <h2 class="detail-title">${product.name}</h2>
           <div class="detail-image-container">
@@ -39,32 +43,19 @@ fetch(apiURL)
           </div>
         </div>
 
-        <!-- Bloque de la derecha -->
-        <div class="product-rating">
-          <h3>Califica este producto</h3>
-          <form id="ratingForm">
-            <div class="rating-stars">
-              <input type="radio" name="stars" id="star5" value="5"><label for="star5">★</label>
-              <input type="radio" name="stars" id="star4" value="4"><label for="star4">★</label>
-              <input type="radio" name="stars" id="star3" value="3"><label for="star3">★</label>
-              <input type="radio" name="stars" id="star2" value="2"><label for="star2">★</label>
-              <input type="radio" name="stars" id="star1" value="1"><label for="star1">★</label>
-            </div>
-            <textarea name="comentario" placeholder="Escribe tu comentario..."></textarea>
-            <button type="submit">Enviar</button>
-          </form>
-        </div>
       </div>
     `;
     container.innerHTML = html;
 
-    // Activar manejo del formulario
-    document.getElementById("ratingForm").addEventListener("submit", guardarComentario);
+    
+   
   })
   .catch(error => {
     console.error("Error cargando el producto:", error);
     container.innerHTML = "<p>No se pudo cargar la información del producto.</p>";
   });
+
+   
 
 // ===============================
 // 2) Cargar comentarios
@@ -79,26 +70,32 @@ function obtenerComentarios() {
       const guardados = JSON.parse(localStorage.getItem("comentarios_" + productID)) || [];
       comentarios = comentarios.concat(guardados);
 
+      comentarios.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
       mostrarComentarios(comentarios);
     });
 }
 
+// ===============================
+// 3) Mostrar comentarios
+// ===============================
 function mostrarComentarios(lista) {
-  comentariosContainer.innerHTML = "";
-  for (let c of lista) {
-    comentariosContainer.innerHTML += `
-      <div class="comentario">
-        <strong>${c.user}</strong> - ${c.dateTime}<br>
-        ${"★".repeat(c.score)}${"☆".repeat(5 - c.score)}<br>
-        ${c.description}
-      </div>
-    `;
-  }
+  comentariosContainer.innerHTML = lista.map(c => `
+    <div class="comentario">
+      <strong>${c.user}</strong> - ${c.dateTime}<br>
+      ${"★".repeat(c.score)}${"☆".repeat(5 - c.score)}<br>
+      ${c.description}
+    </div>
+  `).join("");
 }
 
+document.addEventListener("submit", guardarComentario);
+
 // ===============================
-// 3) Guardar nuevo comentario
+// 4) Guardar nuevo comentario
 // ===============================
+document.addEventListener("submit", guardarComentario);
+
 function guardarComentario(e) {
   e.preventDefault();
 
@@ -114,21 +111,36 @@ function guardarComentario(e) {
     product: productID,
     score: parseInt(stars.value),
     description: comment,
-    user: usuarioGuardado, // o el usuario logueado
+    user: usuarioGuardado,
     dateTime: new Date().toISOString().slice(0, 19).replace("T", " ")
   };
 
-  // agregar al array
-  comentarios.push(nuevoComentario);
-
+  // Guardar en localStorage
   const guardados = JSON.parse(localStorage.getItem("comentarios_" + productID)) || [];
   guardados.push(nuevoComentario);
   localStorage.setItem("comentarios_" + productID, JSON.stringify(guardados));
 
-  mostrarComentarios(comentarios);
+  // Recargar comentarios desde API + localStorage
+  obtenerComentarios();
 
+  // Limpiar formulario
   e.target.reset();
 }
 
-
+// ===============================
+// 5) Inicializar
+// ===============================
 obtenerComentarios();
+
+const linkUsuario = document.getElementById("link-usuario");
+
+if (usuarioGuardado && linkUsuario) {
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado + " (Salir)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("usuario");
+      window.location.href = "login.html";
+    });
+  }
