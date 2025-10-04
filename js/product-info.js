@@ -2,14 +2,57 @@
 const productID = localStorage.getItem("prodID");
 console.log("ProdID:", productID);
 
+
 // Obtener el usuario guardado en localStorage
 const usuarioGuardado = localStorage.getItem("usuario");
 
 // Construir la URL de la API para la info del producto
+
 const apiURL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 
 // Contenedor de info del producto
 const container = document.getElementById("container-info");
+const relatedProductsContainer = document.getElementById("related-products-container"); // Asumiendo que tienes un contenedor en tu HTML
+
+/**
+ * Función para guardar el ID de un producto en localStorage y recargar la página.
+ * @param {string} id - El ID del producto relacionado seleccionado.
+ */
+function setProductIDAndReload(id) {
+    localStorage.setItem("prodID", id);
+    window.location.reload(); // Recarga la página para mostrar el nuevo producto
+}
+
+/**
+ * Función para generar y mostrar la sección de productos relacionados.
+ * @param {Array<Object>} relatedProducts - Array de productos relacionados (con id, name, y image).
+ */
+function showRelatedProducts(relatedProducts) {
+    if (!relatedProductsContainer) return; // Asegura que el contenedor exista
+
+    let htmlContent = '<h3>Productos Relacionados</h3><div class="related-list row">';
+    
+    relatedProducts.forEach(relatedProduct => {
+        // Creamos una tarjeta clicable para cada producto
+        // Usamos la función setProductIDAndReload al hacer clic
+        htmlContent += `
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card cursor-active" onclick="setProductIDAndReload('${relatedProduct.id}')">
+                    <img src="${relatedProduct.image}" class="card-img-top" alt="${relatedProduct.name}">
+                    <div class="card-body">
+                        <p class="card-text">${relatedProduct.name}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    htmlContent += '</div>';
+    relatedProductsContainer.innerHTML = htmlContent;
+
+    // Hacemos la función globalmente accesible (necesario si se renderiza después de la carga inicial)
+    window.setProductIDAndReload = setProductIDAndReload;
+}
 
 // Contenedor de comentarios
 const comentariosContainer = document.getElementById("lista-comentarios");
