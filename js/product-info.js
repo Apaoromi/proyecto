@@ -5,7 +5,6 @@ console.log("ProdID:", productID);
 // Obtener el usuario guardado en localStorage
 const usuarioGuardado = localStorage.getItem("usuario");
 
-
 // Construir la URL de la API para la info del producto
 const apiURL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 
@@ -17,9 +16,10 @@ const comentariosContainer = document.getElementById("lista-comentarios");
 
 const btnEnviar = document.getElementById("btn-comentario");
 
+// Select de ordenar
+const selectOrden = document.getElementById("orden");
+
 let comentarios = [];
-
-
 
 // ===============================
 // 1) Cargar la info del producto
@@ -29,7 +29,6 @@ fetch(apiURL)
   .then(product => {
     const html = `
       <div class="product-page">
-       
         <div class="product-detail">
           <h2 class="detail-title">${product.name}</h2>
           <div class="detail-image-container">
@@ -42,20 +41,14 @@ fetch(apiURL)
             <p><strong>Categoría:</strong> ${product.category}</p>
           </div>
         </div>
-
       </div>
     `;
     container.innerHTML = html;
-
-    
-   
   })
   .catch(error => {
     console.error("Error cargando el producto:", error);
     container.innerHTML = "<p>No se pudo cargar la información del producto.</p>";
   });
-
-   
 
 // ===============================
 // 2) Cargar comentarios
@@ -70,9 +63,8 @@ function obtenerComentarios() {
       const guardados = JSON.parse(localStorage.getItem("comentarios_" + productID)) || [];
       comentarios = comentarios.concat(guardados);
 
-      comentarios.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-
-      mostrarComentarios(comentarios);
+      // Orden inicial: más recientes
+      ordenarComentarios("fecha_desc");
     });
 }
 
@@ -89,8 +81,29 @@ function mostrarComentarios(lista) {
   `).join("");
 }
 
+// ===============================
+// 3.1) Ordenar comentarios
+// ===============================
+function ordenarComentarios(criterio) {
+  let ordenados = [...comentarios];
 
+  switch (criterio) {
+    case "fecha_desc":
+      ordenados.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+      break;
+    case "fecha_asc":
+      ordenados.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+      break;
+    case "puntuacion_desc":
+      ordenados.sort((a, b) => b.score - a.score);
+      break;
+    case "puntuacion_asc":
+      ordenados.sort((a, b) => a.score - b.score);
+      break;
+  }
 
+  mostrarComentarios(ordenados);
+}
 
 // ===============================
 // 4) Guardar nuevo comentario
@@ -133,15 +146,22 @@ function guardarComentario(e) {
 // ===============================
 obtenerComentarios();
 
+// Vincular cambio del select de orden
+if (selectOrden) {
+  selectOrden.addEventListener("change", (e) => {
+    ordenarComentarios(e.target.value);
+  });
+}
+
 const linkUsuario = document.getElementById("link-usuario");
 
 if (usuarioGuardado && linkUsuario) {
-    // Cambiar texto y comportamiento
-    linkUsuario.textContent = usuarioGuardado + " (Salir)";
-    linkUsuario.href = "#";
-    linkUsuario.addEventListener("click", function (e) {
-      e.preventDefault();
-      localStorage.removeItem("usuario");
-      window.location.href = "login.html";
-    });
-  }
+  // Cambiar texto y comportamiento
+  linkUsuario.textContent = usuarioGuardado + " (Salir)";
+  linkUsuario.href = "#";
+  linkUsuario.addEventListener("click", function (e) {
+    e.preventDefault();
+    localStorage.removeItem("usuario");
+    window.location.href = "login.html";
+  });
+}
