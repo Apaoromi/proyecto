@@ -89,7 +89,8 @@ function mostrarComentarios(lista) {
   `).join("");
 }
 
-document.addEventListener("submit", guardarComentario);
+
+
 
 // ===============================
 // 4) Guardar nuevo comentario

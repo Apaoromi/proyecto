@@ -814,3 +814,32 @@ p a {
   transform: scale(1.05);
   color: white
 }
+#ordenar-comentarios {
+  margin-top: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: fit-content;
+}
+
+#ordenar-comentarios label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #333;
+}
+
+#ordenar-comentarios select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+#ordenar-comentarios select:hover {
+  border-color: #007bff;
+}

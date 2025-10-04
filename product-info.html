@@ -61,7 +61,17 @@
  
         <!-- Se podra hagregar una barra para el orden de los comentarios 
          como por calificacion o fecha -->
-    <h3>Comentarios</h3>
+    <!-- Barra de ordenamiento -->
+<div id="ordenar-comentarios">
+  <label for="orden">Ordenar por: </label>
+  <select id="orden">
+    <option value="fecha_desc">Fecha (más recientes primero)</option>
+    <option value="fecha_asc">Fecha (más antiguos primero)</option>
+    <option value="puntuacion_desc">Puntuación (mayor a menor)</option>
+    <option value="puntuacion_asc">Puntuación (menor a mayor)</option>
+  </select>
+</div>
+         <h3>Comentarios</h3>
     <div id="lista-comentarios"></div>
   </div>
   
@@ -88,5 +98,35 @@
   <script src="js/product-info.js"></script>
   <script src="navbar.js"></script>
 </body>
+<script>
+  const selectOrden = document.getElementById("orden");
+  const lista = document.getElementById("lista-comentarios");
+
+  selectOrden.addEventListener("change", () => {
+    let comentarios = Array.from(lista.children);
+
+    comentarios.sort((a, b) => {
+      let fechaA = new Date(a.getAttribute("data-fecha"));
+      let fechaB = new Date(b.getAttribute("data-fecha"));
+      let puntA = parseInt(a.getAttribute("data-puntuacion"));
+      let puntB = parseInt(b.getAttribute("data-puntuacion"));
+
+      switch (selectOrden.value) {
+        case "fecha_desc":
+          return fechaB - fechaA;
+        case "fecha_asc":
+          return fechaA - fechaB;
+        case "puntuacion_desc":
+          return puntB - puntA;
+        case "puntuacion_asc":
+          return puntA - puntB;
+      }
+    });
+
+    // Reinsertar comentarios ordenados
+    lista.innerHTML = "";
+    comentarios.forEach(c => lista.appendChild(c));
+  });
+</script>
 
 </html>
