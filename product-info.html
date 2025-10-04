@@ -40,7 +40,44 @@
   <main>
     <div class="container">
       <div id="container-info"></div>
-      </div>
+
+
+
+  <div class="container">
+    <div id="container-info"></div>
+  
+    <div class="product-rating"> <h3>Califica este producto</h3> 
+      <form id="ratingForm"> 
+        <div class="rating-stars"> 
+          <input type="radio" name="stars" id="star5" value="5">
+          <label for="star5">★</label> 
+          <input type="radio" name="stars" id="star4" value="4"><label for="star4">★</label> 
+          <input type="radio" name="stars" id="star3" value="3"><label for="star3">★</label>
+          <input type="radio" name="stars" id="star2" value="2"><label for="star2">★</label>
+          <input type="radio" name="stars" id="star1" value="1"><label for="star1">★</label>
+          </div> <textarea id="comentario-text" name="comentario" placeholder="Escribe tu comentario..."></textarea> 
+          <button id="btn-comentario" type="submit">Enviar</button>
+          </form> 
+          </div>
+ 
+        <!-- Se podra hagregar una barra para el orden de los comentarios 
+         como por calificacion o fecha -->
+    <!-- Barra de ordenamiento -->
+<div id="ordenar-comentarios">
+  <label for="orden">Ordenar por: </label>
+  <select id="orden">
+    <option value="fecha_desc">Fecha (más recientes primero)</option>
+    <option value="fecha_asc">Fecha (más antiguos primero)</option>
+    <option value="puntuacion_desc">Puntuación (mayor a menor)</option>
+    <option value="puntuacion_asc">Puntuación (menor a mayor)</option>
+  </select>
+</div>
+         <h3>Comentarios</h3>
+    <div id="lista-comentarios"></div>
+  </div>
+  
+
+
   </main>
   <footer class="text-muted">
     <div class="container-info">
@@ -63,5 +100,35 @@
   <script src="js/product-info.js"></script>
   <script src="navbar.js"></script>
 </body>
+<script>
+  const selectOrden = document.getElementById("orden");
+  const lista = document.getElementById("lista-comentarios");
+
+  selectOrden.addEventListener("change", () => {
+    let comentarios = Array.from(lista.children);
+
+    comentarios.sort((a, b) => {
+      let fechaA = new Date(a.getAttribute("data-fecha"));
+      let fechaB = new Date(b.getAttribute("data-fecha"));
+      let puntA = parseInt(a.getAttribute("data-puntuacion"));
+      let puntB = parseInt(b.getAttribute("data-puntuacion"));
+
+      switch (selectOrden.value) {
+        case "fecha_desc":
+          return fechaB - fechaA;
+        case "fecha_asc":
+          return fechaA - fechaB;
+        case "puntuacion_desc":
+          return puntB - puntA;
+        case "puntuacion_asc":
+          return puntA - puntB;
+      }
+    });
+
+    // Reinsertar comentarios ordenados
+    lista.innerHTML = "";
+    comentarios.forEach(c => lista.appendChild(c));
+  });
+</script>
 
 </html>
