@@ -842,3 +842,7 @@ p a {
 #ordenar-comentarios select:hover {
   border-color: #007bff;
 }
+
+#coment{
+  color: white;
+}
