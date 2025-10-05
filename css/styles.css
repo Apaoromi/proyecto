@@ -437,6 +437,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease,scale 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -447,6 +448,7 @@ body {
 
 .product-card:hover {
   transform: translateY(-5px);
+  /*transform: scale(1.02);*/
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -742,6 +744,7 @@ p a {
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
   color: gold;
+  transform: scale(1.2);
 }
 
 /* Comentario */
@@ -779,4 +782,65 @@ p a {
   background-color: #e9ecef;
   border-radius: 6px;
   font-size: 16px;
+}
+
+
+
+.comentario{
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+
+#comentario-text {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px; /* separación con el botón */
+}
+
+#btn-comentario {
+  display: block;
+  margin: 0 auto; 
+  border: none;
+  border-radius: 6px;
+  background-color: orange;
+  transition: background-color .3s, color .3s, transform .2s ease-in-out;
+}
+
+#btn-comentario:hover {
+  background-color: darkorange;
+  cursor: pointer;
+  transform: scale(1.05);
+  color: white
+}
+#ordenar-comentarios {
+  margin-top: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: fit-content;
+}
+
+#ordenar-comentarios label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #333;
+}
+
+#ordenar-comentarios select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+#ordenar-comentarios select:hover {
+  border-color: #007bff;
 }

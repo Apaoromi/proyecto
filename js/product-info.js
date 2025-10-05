@@ -1,12 +1,16 @@
 // Obtener el ID del producto desde localStorage
 const productID = localStorage.getItem("prodID");
-console.log("ProdID:", productID); // debug
+console.log("ProdID:", productID);
 
-// Construir la URL de la API para el producto principal
+
+// Obtener el usuario guardado en localStorage
+const usuarioGuardado = localStorage.getItem("usuario");
+
+// Construir la URL de la API para la info del producto
+
 const apiURL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
-console.log("API URL:", apiURL); // debug
 
-// Contenedor donde se va a mostrar la info
+// Contenedor de info del producto
 const container = document.getElementById("container-info");
 const relatedProductsContainer = document.getElementById("related-products-container"); // Asumiendo que tienes un contenedor en tu HTML
 
@@ -50,72 +54,157 @@ function showRelatedProducts(relatedProducts) {
     window.setProductIDAndReload = setProductIDAndReload;
 }
 
-// Fetch a la API
+// Contenedor de comentarios
+const comentariosContainer = document.getElementById("lista-comentarios");
+
+const btnEnviar = document.getElementById("btn-comentario");
+
+// Select de ordenar
+const selectOrden = document.getElementById("orden");
+
+let comentarios = [];
+
+// ===============================
+// 1) Cargar la info del producto
+// ===============================
 fetch(apiURL)
-    .then(response => response.json())
-    .then(product => {
-        // --- 1. RENDERIZACIÓN DEL PRODUCTO PRINCIPAL ---
-        const html = `
-            <div class="product-page">
-                <div class="product-detail">
-                    <h2 class="detail-title">${product.name}</h2>
-                    <div class="detail-image-container">
-                        <img src="${product.images[0]}" alt="${product.name}" class="detail-image">
-                    </div>
-                    <div class="detail-info">
-                        <p class="detail-description"><strong>Descripción:</strong> ${product.description}</p>
-                        <p class="detail-price"><strong>Precio:</strong> ${product.currency} ${product.cost}</p>
-                        <p class="detail-sold"><strong>Vendidos:</strong> ${product.soldCount}</p>
-                        <p class="detail-category"><strong>Categoría:</strong> ${product.category}</p>
-                    </div>
-                </div>
-                <div class="product-rating">
-                    <h3 class="rating-title">Califica este producto</h3>
-                    <form id="ratingForm" class="rating-form">
-                        <div class="rating-stars">
-                            <input type="radio" name="stars" id="star5" value="5"><label for="star5">★</label>
-                            <input type="radio" name="stars" id="star4" value="4"><label for="star4">★</label>
-                            <input type="radio" name="stars" id="star3" value="3"><label for="star3">★</label>
-                            <input type="radio" name="stars" id="star2" value="2"><label for="star2">★</label>
-                            <input type="radio" name="stars" id="star1" value="1"><label for="star1">★</label>
-                        </div>
-                        <textarea name="comentario" class="rating-comment" placeholder="Escribe tu comentario..."></textarea>
-                        <button type="submit" class="rating-btn">Enviar</button>
-                    </form>
-                    <div id="ratingResult" class="rating-result"></div>
-                </div>
-            </div>
-        `;
+  .then(response => response.json())
+  .then(product => {
+    const html = `
+      <div class="product-page">
+        <div class="product-detail">
+          <h2 class="detail-title">${product.name}</h2>
+          <div class="detail-image-container">
+            <img src="${product.images[0]}" alt="${product.name}" class="detail-image">
+          </div>
+          <div class="detail-info">
+            <p><strong>Descripción:</strong> ${product.description}</p>
+            <p><strong>Precio:</strong> ${product.currency} ${product.cost}</p>
+            <p><strong>Vendidos:</strong> ${product.soldCount}</p>
+            <p><strong>Categoría:</strong> ${product.category}</p>
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML = html;
+  })
+  .catch(error => {
+    console.error("Error cargando el producto:", error);
+    container.innerHTML = "<p>No se pudo cargar la información del producto.</p>";
+  });
 
-        container.innerHTML = html;
+// ===============================
+// 2) Cargar comentarios
+// ===============================
+function obtenerComentarios() {
+  fetch(`https://japceibal.github.io/emercado-api/products_comments/${productID}.json`)
+    .then(res => res.json())
+    .then(data => {
+      comentarios = data;
 
-        // --- 2. RENDERIZACIÓN DE PRODUCTOS RELACIONADOS ---
-        // La propiedad 'relatedProducts' viene incluida en el JSON de la API.
-        if (product.relatedProducts && product.relatedProducts.length > 0) {
-            showRelatedProducts(product.relatedProducts);
-        }
+      // Traer los guardados en localStorage
+      const guardados = JSON.parse(localStorage.getItem("comentarios_" + productID)) || [];
+      comentarios = comentarios.concat(guardados);
 
-
-        // --- 3. Script para manejar la calificación (sin cambios) ---
-        document.getElementById("ratingForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const stars = document.querySelector('input[name="stars"]:checked');
-            const comment = this.comentario.value;
-
-            if (!stars) {
-                alert("Por favor selecciona una cantidad de estrellas.");
-                return;
-            }
-
-            document.getElementById("ratingResult").innerHTML = `
-                <p><strong>Tu calificación:</strong> ${stars.value} ★</p>
-                <p><strong>Comentario:</strong> ${comment}</p>
-            `;
-
-            this.reset();
-        });
-    })
-    .catch(error => {
-        console.error("Error cargando el producto:", error);
-        container.innerHTML = "<p>No se pudo cargar la información del producto.</p>";
+      // Orden inicial: más recientes
+      ordenarComentarios("fecha_desc");
     });
+}
+
+// ===============================
+// 3) Mostrar comentarios
+// ===============================
+function mostrarComentarios(lista) {
+  comentariosContainer.innerHTML = lista.map(c => `
+    <div class="comentario">
+      <strong>${c.user}</strong> - ${c.dateTime}<br>
+      ${"★".repeat(c.score)}${"☆".repeat(5 - c.score)}<br>
+      ${c.description}
+    </div>
+  `).join("");
+}
+
+// ===============================
+// 3.1) Ordenar comentarios
+// ===============================
+function ordenarComentarios(criterio) {
+  let ordenados = [...comentarios];
+
+  switch (criterio) {
+    case "fecha_desc":
+      ordenados.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+      break;
+    case "fecha_asc":
+      ordenados.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+      break;
+    case "puntuacion_desc":
+      ordenados.sort((a, b) => b.score - a.score);
+      break;
+    case "puntuacion_asc":
+      ordenados.sort((a, b) => a.score - b.score);
+      break;
+  }
+
+  mostrarComentarios(ordenados);
+}
+
+// ===============================
+// 4) Guardar nuevo comentario
+// ===============================
+document.addEventListener("submit", guardarComentario);
+
+function guardarComentario(e) {
+  e.preventDefault();
+
+  const stars = document.querySelector('input[name="stars"]:checked');
+  const comment = e.target.comentario.value;
+
+  if (!stars) {
+    alert("Por favor selecciona una cantidad de estrellas.");
+    return;
+  }
+
+  const nuevoComentario = {
+    product: productID,
+    score: parseInt(stars.value),
+    description: comment,
+    user: usuarioGuardado,
+    dateTime: new Date().toISOString().slice(0, 19).replace("T", " ")
+  };
+
+  // Guardar en localStorage
+  const guardados = JSON.parse(localStorage.getItem("comentarios_" + productID)) || [];
+  guardados.push(nuevoComentario);
+  localStorage.setItem("comentarios_" + productID, JSON.stringify(guardados));
+
+  // Recargar comentarios desde API + localStorage
+  obtenerComentarios();
+
+  // Limpiar formulario
+  e.target.reset();
+}
+
+// ===============================
+// 5) Inicializar
+// ===============================
+obtenerComentarios();
+
+// Vincular cambio del select de orden
+if (selectOrden) {
+  selectOrden.addEventListener("change", (e) => {
+    ordenarComentarios(e.target.value);
+  });
+}
+
+const linkUsuario = document.getElementById("link-usuario");
+
+if (usuarioGuardado && linkUsuario) {
+  // Cambiar texto y comportamiento
+  linkUsuario.textContent = usuarioGuardado + " (Salir)";
+  linkUsuario.href = "#";
+  linkUsuario.addEventListener("click", function (e) {
+    e.preventDefault();
+    localStorage.removeItem("usuario");
+    window.location.href = "login.html";
+  });
+}
