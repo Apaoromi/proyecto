@@ -101,34 +101,57 @@
   <script src="navbar.js"></script>
 </body>
 <script>
+document.addEventListener('DOMContentLoaded', () => {
   const selectOrden = document.getElementById("orden");
   const lista = document.getElementById("lista-comentarios");
 
-  selectOrden.addEventListener("change", () => {
-    let comentarios = Array.from(lista.children);
+  //  dd/mm/yyyy 
+  function parseDateToTime(s) {
+    if (!s) return 0;
+    const t = Date.parse(s);
+    if (!isNaN(t)) return t;
+    const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})(?:\s+(\d{1,2}):(\d{2}))?/);
+    if (m) {
+      const day = m[1], month = m[2], year = m[3], hour = m[4] || '0', min = m[5] || '0';
+      return new Date(`${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}T${String(hour).padStart(2,'0')}:${String(min).padStart(2,'0')}`).getTime();
+    }
+    return 0;
+  }
 
-    comentarios.sort((a, b) => {
-      let fechaA = new Date(a.getAttribute("data-fecha"));
-      let fechaB = new Date(b.getAttribute("data-fecha"));
-      let puntA = parseInt(a.getAttribute("data-puntuacion"));
-      let puntB = parseInt(b.getAttribute("data-puntuacion"));
+  function getItems() {
+    // sólo elementos 
+    return Array.from(lista.children).filter(n => n.nodeType === 1);
+  }
 
-      switch (selectOrden.value) {
-        case "fecha_desc":
-          return fechaB - fechaA;
-        case "fecha_asc":
-          return fechaA - fechaB;
-        case "puntuacion_desc":
-          return puntB - puntA;
-        case "puntuacion_asc":
-          return puntA - puntB;
+  function ordenar() {
+    const items = getItems();
+    const modo = selectOrden.value;
+
+    items.sort((a,b) => {
+      const fechaA = parseDateToTime(a.dataset.fecha || a.getAttribute('data-fecha'));
+      const fechaB = parseDateToTime(b.dataset.fecha || b.getAttribute('data-fecha'));
+      const puntA = parseInt(a.dataset.puntuacion || a.getAttribute('data-puntuacion')) || 0;
+      const puntB = parseInt(b.dataset.puntuacion || b.getAttribute('data-puntuacion')) || 0;
+
+      switch (modo) {
+        case 'fecha_desc': return fechaB - fechaA;
+        case 'fecha_asc':  return fechaA - fechaB;
+        case 'puntuacion_desc': return puntB - puntA;
+        case 'puntuacion_asc':  return puntA - puntB;
+        default: return 0;
       }
     });
 
-    // Reinsertar comentarios ordenados
-    lista.innerHTML = "";
-    comentarios.forEach(c => lista.appendChild(c));
-  });
+    const frag = document.createDocumentFragment();
+    items.forEach(it => frag.appendChild(it));
+    lista.innerHTML = '';
+    lista.appendChild(frag);
+  }
+
+  // cuando cambie el select
+  selectOrden.addEventListener('change', ordenar);
+});
 </script>
+
 
 </html>
