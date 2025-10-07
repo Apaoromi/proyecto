@@ -31,16 +31,16 @@ let comentarios = [];
  * Esto simula la navegación a la página de otro producto.
  * @param {string} id - El ID del producto relacionado seleccionado.
  */
-function setProductIDAndReload(id) {
+function irAProducto(id) {
     localStorage.setItem("prodID", id);
     window.location.reload(); // Recarga la página para mostrar el nuevo producto
 }
 
 /**
  * Función para generar y mostrar la sección de productos relacionados.
- * @param {Array<Object>} relatedProducts - Array de productos relacionados (con id, name, y image).
+ * @param {Array<Object>} relacionados - Array de productos relacionados (con id, name, y image).
  */
-function showRelatedProducts(relatedProducts) {
+function mostrarProductosRelacionados(relacionados) {
     if (!relatedProductsContainer) {
         console.error("Contenedor de productos relacionados no encontrado.");
         return;
@@ -48,17 +48,17 @@ function showRelatedProducts(relatedProducts) {
 
     let htmlContent = '';
 
-    if (relatedProducts && relatedProducts.length > 0) {
+    if (relacionados && relacionados.length > 0) {
         // Envolvemos los relacionados en una fila (row) para usar las columnas de Bootstrap
         htmlContent += '<div class="row">';
-        relatedProducts.forEach(relatedProduct => {
+        relacionados.forEach(relacionado => {
             // Utilizamos clases de Bootstrap para una mejor presentación
             htmlContent += `
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card cursor-active h-100" onclick="setProductIDAndReload('${relatedProduct.id}')">
-                        <img src="${relatedProduct.image}" class="card-img-top" alt="${relatedProduct.name}">
+                    <div class="card cursor-active h-100" onclick="irAProducto('${relacionado.id}')">
+                        <img src="${relacionado.image}" class="card-img-top" alt="${relacionado.name}">
                         <div class="card-body">
-                            <h5 class="card-title">${relatedProduct.name}</h5>
+                            <h5 class="card-title">${relacionado.name}</h5>
                             <p class="card-text text-muted">Ver producto</p>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ function showRelatedProducts(relatedProducts) {
     relatedProductsContainer.innerHTML = htmlContent;
 
     // Hacemos la función globalmente accesible para el onclick en el HTML generado
-    window.setProductIDAndReload = setProductIDAndReload;
+    window.irAProducto = irAProducto;
 }
 
 // ====================================================================
@@ -103,7 +103,8 @@ fetch(apiURL)
 
         // B. Mostrar los productos relacionados usando la nueva función
         if (product.relatedProducts) {
-            showRelatedProducts(product.relatedProducts);
+            // Se usa el nuevo nombre de función: mostrarProductosRelacionados
+            mostrarProductosRelacionados(product.relatedProducts);
         }
     })
     .catch(error => {
@@ -220,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Lógica para el link de usuario/login/logout (manteniendo tu código)
+    // Lógica para el link de usuario/login/logout 
     const linkUsuario = document.getElementById("link-usuario");
     if (usuarioGuardado && linkUsuario) {
         linkUsuario.textContent = usuarioGuardado + " (Salir)";
