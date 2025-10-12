@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const usuarioGuardado = localStorage.getItem("usuario");
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
 
     // Solo redirigir si intentan entrar al index sin usuario
     if (!usuarioGuardado) {
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (usuarioGuardado && linkUsuario) {
     // Cambiar texto y comportamiento
-    linkUsuario.textContent = usuarioGuardado + " (Salir)";
+    linkUsuario.textContent = usuarioGuardado.usuario + " (Salir)";
     linkUsuario.href = "#";
     linkUsuario.addEventListener("click", function (e) {
       e.preventDefault();
