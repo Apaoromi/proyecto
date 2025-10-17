@@ -863,14 +863,15 @@ p a {
 }
 
 #imagen-perfil {
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   background-color: #ddd;
   background-size: cover;
   background-position: center;
-  border: 2px solid #999;
+  border: 2px solid #ccc;
 }
+
 
 #info-perfil {
   flex: 1;
@@ -891,10 +892,27 @@ p a {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s, transform 0.2s ease-in-out;
 }
 
 #editar-perfil:hover {
   background-color: #0056b3;
+  transform: scale(1.02);
 }
 
+#borrar-perfil {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #DC3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s, transform 0.2s ease-in-out;
+}
+
+#borrar-perfil:hover {
+  background-color:  #C82333;
+  transform: scale(1.02);
+}

@@ -146,14 +146,14 @@ document.addEventListener("DOMContentLoaded", function(e){
     const linkUsuario = document.getElementById("link-usuario");
 
 
-  if (usuarioGuardado && linkUsuario) {
+    if (usuarioGuardado && linkUsuario) {
     // Cambiar texto y comportamiento
-    linkUsuario.textContent = usuarioGuardado.usuario + " (Salir)";
+    linkUsuario.textContent = usuarioGuardado.usuario + " (Mi perfil)";
     linkUsuario.href = "#";
     linkUsuario.addEventListener("click", function (e) {
       e.preventDefault();
-      localStorage.removeItem("usuario");
-      window.location.href = "login.html";
-    });
-  }
+      window.location.href = "my-profile.html";
+        });
+    }
+
 });

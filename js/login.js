@@ -63,14 +63,14 @@ document.getElementById("formRegistro")?.addEventListener("submit", function (ev
     return;
   }
 
-
+  
   const datosUsuario = {
     usuario,
     nombre,
     apellido,
     email,
-    telefono
-
+    telefono,
+    imagen: imagen || 'img/img_perfil.png'
   };
 
   localStorage.setItem("usuario", JSON.stringify(datosUsuario));

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const linkUsuario = document.getElementById("link-usuario");
   
 
-
+    /*
     if (usuarioGuardado && linkUsuario) {
     // Cambiar texto y comportamiento
     linkUsuario.textContent = usuarioGuardado.usuario + " (Salir)";
@@ -14,5 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.removeItem("usuario");
       window.location.href = "login.html";
     });
-  }
+    */
+   
 });
