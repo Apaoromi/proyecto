@@ -916,3 +916,72 @@ p a {
   background-color:  #C82333;
   transform: scale(1.02);
 }
+
+/* Variables para modo claro (predeterminado) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #007bff;
+    --border-color: #dee2e6;
+    --footer-bg: #343a40;
+    --footer-text: #ffffff;
+}
+
+/* Variables para modo oscuro (solo cuando el usuario lo active) */
+.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #f5f5f5;
+    --text-secondary: #cccccc;
+    --accent-color: #4dabf7;
+    --border-color: #495057;
+    --footer-bg: #1a1a1a;
+    --footer-text: #f5f5f5;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: auto; /* Para que quede a la derecha en el navbar */
+    padding: 8px 12px;
+}
+
+.toggle-label {
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.toggle-switch {
+    width: 50px;
+    height: 25px;
+    background-color: var(--border-color);
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .toggle-switch::before {
+    transform: translateX(25px);
+}

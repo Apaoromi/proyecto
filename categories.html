@@ -36,6 +36,11 @@
         </ul>
       </div>
     </div>
+    <div class="theme-toggle" id="themeToggle">
+        <span class="toggle-label">Modo Oscuro</span>
+        <div class="toggle-switch"></div>
+    </div>
+</nav>
   </nav>
   <main class="pb-5">
     <div class="text-center p-4">
@@ -98,10 +103,47 @@
       <div></div>
     </div>
   </div>
+  <div class="theme-toggle" id="themeToggle">
+    <span class="toggle-label">Modo Oscuro</span>
+    <div class="toggle-switch"></div>
+</div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/categories.js"></script>
   <script src="navbar.js"></script>
+  <script>
+// Función para cambiar entre modo claro y oscuro
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    
+    // Guardar preferencia en localStorage
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+    
+    // Actualizar texto del toggle
+    const toggleLabel = document.querySelector('.toggle-label');
+    toggleLabel.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
+}
+
+// Cargar preferencia de tema al iniciar
+function loadTheme() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.toggle-label').textContent = 'Modo Claro';
+    }
+    // Si no hay preferencia guardada, se queda en modo claro (predeterminado)
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    
+    // Configurar el toggle del tema
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+</script>
 </body>
 
 </html>
