@@ -985,3 +985,605 @@ body {
 .dark-mode .toggle-switch::before {
     transform: translateX(25px);
 }
+/* Variables modo claro */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #007bff;
+    --border-color: #dee2e6;
+    --footer-bg: #343a40;
+    --footer-text: #ffffff;
+}
+
+/* Variables modo oscuro */
+.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #f5f5f5;
+    --text-secondary: #cccccc;
+    --accent-color: #4dabf7;
+    --border-color: #495057;
+    --footer-bg: #1a1a1a;
+    --footer-text: #f5f5f5;
+}
+
+/* Estilos base */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Toggle */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 8px 12px;
+}
+
+.toggle-label {
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.toggle-switch {
+    width: 50px;
+    height: 25px;
+    background-color: var(--border-color);
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .toggle-switch::before {
+    transform: translateX(25px);
+}
+
+/* Cuadros/tarjetas */
+.dark-mode .card {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .card-body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dark-mode .card-title {
+    color: var(--text-primary);
+}
+
+.dark-mode .card-text {
+    color: var(--text-secondary);
+}
+
+/* Perfil */
+.dark-mode #carta-perfil {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.dark-mode #info-perfil {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dark-mode #nombre-usuario,
+.dark-mode #apellido,
+.dark-mode #email-usuario,
+.dark-mode #numero-contacto {
+    color: var(--text-primary);
+}
+
+/* Botones de perfil */
+.dark-mode #editar-perfil {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+.dark-mode #borrar-perfil {
+    background-color: #dc3545;
+    color: var(--bg-primary);
+    border-color: #dc3545;
+}
+
+.dark-mode #editar-perfil:hover {
+    background-color: var(--bg-primary);
+    color: var(--accent-color);
+}
+
+.dark-mode #borrar-perfil:hover {
+    background-color: var(--bg-primary);
+    color: #dc3545;
+}
+
+/* Modo oscuro para filtros y controles de categorías */
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+.dark-mode .btn-outline-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .btn-outline-secondary:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+/* Modo oscuro para los cuadrados/bloques de categorías */
+.dark-mode .list-group-item {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .list-group-item:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+}
+
+
+.dark-mode .category-item,
+.dark-mode .subcategory-item,
+.dark-mode .category-block {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Modo oscuro para página de producto */
+.dark-mode #container-info {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .product-rating {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .rating-stars label {
+    color: var(--text-secondary);
+}
+
+.dark-mode .rating-stars input:checked + label,
+.dark-mode .rating-stars label:hover {
+    color: gold;
+}
+
+.dark-mode #comentario-text {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode #comentario-text::placeholder {
+    color: var(--text-secondary);
+}
+
+.dark-mode #btn-comentario {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+.dark-mode #btn-comentario:hover {
+    background-color: var(--bg-primary);
+    color: var(--accent-color);
+}
+
+.dark-mode #lista-comentarios .comment-item {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode #ordenar-comentarios {
+    color: var(--text-primary);
+}
+
+.dark-mode #orden {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+/* Mantener el navbar original en ambos modos */
+.navbar-dark.bg-dark {
+    background-color: #343a40 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.75) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,1) !important;
+}
+
+/* El toggle dentro del navbar */
+.navbar .theme-toggle {
+    margin-left: auto;
+}
+
+.navbar .toggle-label {
+    color: rgba(255,255,255,.75) !important;
+}
+
+.navbar .toggle-switch {
+    background-color: rgba(255,255,255,.25);
+}
+
+/* Modo oscuro para comentarios y rating */
+.dark-mode .product-rating {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.dark-mode .rating-title {
+  color: var(--text-primary);
+}
+
+.dark-mode .rating-comment {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .rating-comment::placeholder {
+  color: var(--text-secondary);
+}
+
+.dark-mode .rating-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.dark-mode .rating-btn:hover {
+  background-color: var(--bg-primary);
+  color: var(--accent-color);
+}
+
+.dark-mode .rating-result {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .comentario {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark-mode #comentario-text {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode #comentario-text::placeholder {
+  color: var(--text-secondary);
+}
+
+.dark-mode #btn-comentario {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.dark-mode #btn-comentario:hover {
+  background-color: var(--bg-primary);
+  color: var(--accent-color);
+}
+
+.dark-mode #ordenar-comentarios {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode #ordenar-comentarios label {
+  color: var(--text-primary);
+}
+
+.dark-mode #ordenar-comentarios select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode #coment {
+  color: var(--text-primary) !important;
+}
+
+/* ===== MODO CLARO/OSCURO ===== */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent-color: #007bff;
+  --border-color: #dee2e6;
+  --footer-bg: #343a40;
+  --footer-text: #ffffff;
+}
+
+.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #f5f5f5;
+  --text-secondary: #cccccc;
+  --accent-color: #4dabf7;
+  --border-color: #495057;
+  --footer-bg: #1a1a1a;
+  --footer-text: #f5f5f5;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 8px 12px;
+}
+
+.toggle-label {
+  margin-right: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 25px;
+  background-color: var(--border-color);
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-switch::before {
+  content: '';
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+.dark-mode .toggle-switch::before {
+  transform: translateX(25px);
+}
+
+/* Navbar fijo */
+.navbar-dark.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,.75) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: rgba(255,255,255,1) !important;
+}
+
+.navbar .theme-toggle {
+  margin-left: auto;
+}
+
+.navbar .toggle-label {
+  color: rgba(255,255,255,.75) !important;
+}
+
+.navbar .toggle-switch {
+  background-color: rgba(255,255,255,.25);
+}
+
+/* Estilos específicos para cada página */
+.dark-mode .card {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .card-body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .form-control {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+/* Modo oscuro para la información del producto */
+.dark-mode .product-detail {
+    background-color: #2d3748 !important;
+    color: #f5f5f5 !important;
+    border: 1px solid #4a5568 !important;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dark-mode .product-detail .detail-title {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .product-detail .detail-info {
+    color: #cccccc !important;
+}
+
+.dark-mode .product-detail strong {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .product-detail p {
+    color: #cccccc !important;
+}
+
+/* Modo oscuro para la información del producto - sin borde */
+.dark-mode .product-detail {
+    background-color: #2d3748 !important;
+    color: #f5f5f5 !important;
+    /* border: 1px solid #4a5568 !important; */ /* ELIMINAR ESTA LÍNEA */
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dark-mode .product-detail .detail-title {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .product-detail .detail-info {
+    color: #cccccc !important;
+}
+
+.dark-mode .product-detail strong {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .product-detail p {
+    color: #cccccc !important;
+}
+
+/* Modo oscuro para los cuadros de productos */
+.dark-mode .card {
+    background-color: #2d3748 !important;
+    border: none !important;
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .card-body {
+    background-color: #2d3748 !important;
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .card-title {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .card-text {
+    color: #cccccc !important;
+}
+
+.dark-mode .card .product-price {
+    color: #4dabf7 !important;
+    font-weight: bold;
+}
+
+/* Modo oscuro para la barra de filtros */
+.dark-mode .bg-body-tertiary {
+    background-color: #2d3748 !important;
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .navbar-brand {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .form-control {
+    background-color: #1a202c !important;
+    color: #f5f5f5 !important;
+    border-color: #4a5568 !important;
+}
+
+.dark-mode .form-control::placeholder {
+    color: #a0aec0 !important;
+}
+
+.dark-mode .btn-outline-primary {
+    border-color: #4dabf7 !important;
+    color: #4dabf7 !important;
+}
+
+.dark-mode .btn-outline-primary:hover {
+    background-color: #4dabf7 !important;
+    color: #1a202c !important;
+}
+
+.dark-mode .btn-primary {
+    background-color: #4dabf7 !important;
+    border-color: #4dabf7 !important;
+    color: #1a202c !important;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #718096 !important;
+    border-color: #718096 !important;
+    color: #f5f5f5 !important;
+}
+/* Modo oscuro para los cuadros de productos - usando la clase correcta */
+.dark-mode .product-info {
+    background-color: #2d3748 !important;
+    border: none !important;
+    color: #f5f5f5 !important;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.dark-mode .product-info h3,
+.dark-mode .product-info h4,
+.dark-mode .product-info h5 {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .product-info p {
+    color: #cccccc !important;
+}
+
+.dark-mode .product-info .price {
+    color: #4dabf7 !important;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Si usan otra clase para los productos */
+.dark-mode [class*="product"],
+.dark-mode [class*="item"],
+.dark-mode [class*="card"] {
+    background-color: #2d3748 !important;
+    color: #f5f5f5 !important;
+}
