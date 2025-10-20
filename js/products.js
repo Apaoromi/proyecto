@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const categoryID = localStorage.getItem("catID");
   const apiURL = `https://japceibal.github.io/emercado-api/cats_products/${categoryID}.json`;
 
+
+  const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+  const linkUsuario = document.getElementById("link-usuario");
+  
   let productos = [];
 
   const imgContainerTitle = document.querySelector(".img-titulo");
@@ -138,6 +142,20 @@ btnOrdenarRelevancia.addEventListener("click", function() {
   
   mostrarProductos(filtrados);
 });
+
+
+
+
+
+  if (usuarioGuardado && linkUsuario) {
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado.usuario + " (Mi perfil)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "my-profile.html";
+        });
+    }
 
 });
 

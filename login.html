@@ -14,7 +14,9 @@
       background-color: rgb(248, 249, 250);
     }
   </style>
+
 </head>
+
 
 <body>
   <main class="login">
@@ -31,9 +33,26 @@
 
       <form id="formRegistro">
         <div class="formulario">
+          <label for="imagen" style="display: none;">Imagen:</label>
+          <input id="imagen" type="image" name="imagen" placeholder="Ingrese la URL de su imagen" style="display: none;">
+        </div>
+        <div class="formulario">
           <label for="nombre">Nombre:</label>
           <input id="nombre" type="text" name="nombre" placeholder="Ingrese su nombre" required>
         </div>
+        <div class="formulario">
+          <label for="apellido">Apellido:</label>
+          <input id="apellido" type="text" name="apellido" placeholder="Ingrese su apellido" required>
+        </div>
+        <div class="formulario">
+          <label for="email">Email:</label>
+          <input id="email" type="email" name="email" placeholder="Ingrese su email" required>
+        </div>
+        <div class="formulario">
+          <label for="telefono">Teléfono:</label>
+          <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su teléfono" required>
+        </div>
+        <hr>
         <div class="formulario">
           <label for="usuario">Usuario:</label>
           <input id="usuario" type="text" name="usuario" placeholder="Ingrese su usuario" required>
@@ -73,6 +92,14 @@
   <script src="js/login.js"></script>
   <script src="navbar.js"></script>
 
+<script>
+
+
+
+
+</script>
+ <script src="js/dark-mode.js"></script>
 </body>
+
 
 </html>

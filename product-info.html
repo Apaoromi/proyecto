@@ -10,7 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-<head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>eMercado - Todo lo que busques está aquí</title>
@@ -38,6 +38,14 @@ aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 <li class="nav-item">
 <a class="nav-link" id="link-usuario" href="login.html">Registrarse</a>
 </li>
+<!-- modo c/o  -->
+<li class="nav-item">
+            <div class="theme-toggle" id="themeToggle">
+              <span class="toggle-label">Modo Oscuro</span>
+              <div class="toggle-switch"></div>
+            </div>
+
+</li>
 </ul>
 </div>
 </div>
@@ -46,8 +54,6 @@ aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 <div class="container">
 <div id="container-info"></div>
 </div>
-
-
 <div class="container">
 <div class="product-rating"> <h3>Califica este producto</h3> 
 <form id="ratingForm"> 
@@ -138,5 +144,39 @@ lista.innerHTML = "";
 comentarios.forEach(c => lista.appendChild(c));
 });
 </script>
+<script>
+// Función para cambiar entre modo claro y oscuro
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    
+    // Guardar preferencia en localStorage
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+    
+    // Actualizar texto del toggle
+    const toggleLabel = document.querySelector('.toggle-label');
+    toggleLabel.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
+}
 
+// Cargar preferencia de tema al iniciar
+function loadTheme() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.toggle-label').textContent = 'Modo Claro';
+    }
+    // Si no hay preferencia guardada, se queda en modo claro (predeterminado)
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    
+    // Configurar el toggle del tema
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+</script>
+
+</body>
 </html>

@@ -7,7 +7,7 @@ function showAlertError() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const usuarioGuardado = localStorage.getItem("usuario");
+  const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
 
   if (window.location.pathname.includes("index.html") && !usuarioGuardado) {
     window.location.href = "login.html";
@@ -16,22 +16,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname.includes("login.html") && usuarioGuardado) {
     Swal.fire({
       title: '¡Bienvenido nuevamente!',
-      text: 'Hola, ' + usuarioGuardado,
+      text: 'Hola, ' + usuarioGuardado.nombre,
       icon: 'success',
       confirmButtonText: 'Ir al inicio',
       customClass: {
         confirmButton: 'btn-inicio'
       },
       allowOutsideClick: false,
-      timer: 10000,           // Cierra el popup automáticamente después de 15s
-      timerProgressBar: true, // Opcional: muestra una barra de progreso del tiempo
+      timer: 10000,
+      timerProgressBar: true,
       willClose: () => {
-        // Cuando el popup se cierre (por timer o por click), redirigimos
         window.location.href = 'index.html';
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // Si el usuario hizo click en el botón
         window.location.href = 'index.html';
       }
     });
@@ -45,8 +43,12 @@ document.getElementById("formRegistro")?.addEventListener("submit", function (ev
   const usuario = document.getElementById("usuario").value.trim();
   const password = document.getElementById("password").value.trim();
   const password2 = document.getElementById("password2").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
 
-  if (nombre === "" || usuario === "" || password === "" || password2 === "") {
+  if (nombre === "" || usuario === "" || password === "" || password2 === ""
+    || apellido === "" || email === "" || telefono === "") {
     showAlertError();
     return;
   }
@@ -61,7 +63,18 @@ document.getElementById("formRegistro")?.addEventListener("submit", function (ev
     return;
   }
 
-  localStorage.setItem("usuario", usuario);
+  
+  const datosUsuario = {
+    usuario,
+    nombre,
+    apellido,
+    email,
+    telefono,
+    imagen: imagen || 'img/img_perfil.png'
+  };
+
+  localStorage.setItem("usuario", JSON.stringify(datosUsuario));
+
   showAlertSuccess();
 
   setTimeout(function () {

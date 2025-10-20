@@ -3,7 +3,7 @@ const productID = localStorage.getItem("prodID");
 console.log("ProdID:", productID);
 
 // Obtener el usuario guardado en localStorage
-const usuarioGuardado = localStorage.getItem("usuario");
+const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
 
 // Construir la URL de la API para la info del producto
 const apiURL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
@@ -221,15 +221,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Lógica para el link de usuario/login/logout 
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));  
     const linkUsuario = document.getElementById("link-usuario");
+
     if (usuarioGuardado && linkUsuario) {
-        linkUsuario.textContent = usuarioGuardado + " (Salir)";
-        linkUsuario.href = "#";
-        linkUsuario.addEventListener("click", function (e) {
-            e.preventDefault();
-            localStorage.removeItem("usuario");
-            window.location.href = "login.html";
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado.usuario + " (Mi perfil)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "my-profile.html";
         });
     }
+
 });

@@ -50,12 +50,25 @@
         </ul>
       </div>
     </div>
+ 
+    <!-- Tus elementos del navbar -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="toggle-label">Modo Oscuro</span>
+        <div class="toggle-switch"></div>
+    </div>
+
   </nav>
+
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div id="carta-perfil">
+      <div id="imagen-perfil"></div>
+      <div id="info-perfil">
+        <h2 id="nombre-usuario">Nombre</h2>
+        <h2 id="apellido">Apellido</h2>
+        <h2 id="email-usuario">Email</h2>
+        <h2 id="numero-contacto">Numero</h2>
+        <button id="editar-perfil" type="button">Editar perfil</button>
+        <button id="borrar-perfil" type="button">Borrar perfil</button>
     </div>
   </main>
   <footer class="text-muted">
@@ -70,6 +83,41 @@
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
   <script src="navbar.js"></script>
+
+
+<script>
+  // Función para cambiar entre modo claro y oscuro
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    
+    // Guardar preferencia en localStorage
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+    
+    // Actualizar texto del toggle
+    const toggleLabel = document.querySelector('.toggle-label');
+    toggleLabel.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
+}
+
+// Cargar preferencia de tema al iniciar
+function loadTheme() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.toggle-label').textContent = 'Modo Claro';
+    }
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    
+    // Configurar el toggle del tema
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+</script>
+ <script src="js/dark-mode.js"></script>
 </body>
 
 </html>
