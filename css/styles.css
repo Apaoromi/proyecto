@@ -1543,5 +1543,78 @@ body.dark-mode strong {
   filter: blur(5px);
   z-index: -1;
 }
+/* Estilos básicos (CSS) */
+body { 
+    font-family: sans-serif; 
+    margin: 20px; 
+}
 
+header h1 { 
+    text-align: center; 
+}
+
+.contenedor-principal { 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 30px; 
+}
+
+.productos, .carrito { 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+.productos { 
+    flex: 2; 
+}
+
+.carrito { 
+    flex: 1; 
+    background-color: #f9f9f9; 
+}
+
+.producto-item { 
+    margin-bottom: 15px; 
+    padding-bottom: 10px; 
+    border-bottom: 1px dotted #eee; 
+    /* Se recomienda añadir un min-height para que los divs vacíos sean visibles */
+    min-height: 50px; 
+    background-color: #f0f0ff; /* Color para distinguir el área de los productos */
+}
+
+.carrito ul { 
+    list-style: none; 
+    padding: 0; 
+}
+
+.carrito li { 
+    margin-bottom: 10px; 
+}
+
+.total { 
+    font-weight: bold; 
+    margin-top: 15px; 
+    padding-top: 10px; 
+    border-top: 1px solid #ccc; 
+}
+
+.alerta-vacio { 
+    color: gray; 
+    text-align: center; 
+    padding: 10px; 
+    display:grid
+}
+
+/* Estilo para el botón Finalizar Compra, movido del HTML al CSS */
+.btn-finalizar {
+    width: 100%; 
+    padding: 10px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 3px; 
+    margin-top: 10px;
+}
 
