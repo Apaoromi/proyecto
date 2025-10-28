@@ -234,4 +234,47 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+
+
+
+
+        
+    
+
+
+const btnCarrito = document.getElementById("btnCarrito");
+const alertPlaceholder = document.getElementById("alertPlaceholder");
+
+// Función para mostrar alertas con Bootstrap
+function appendAlert(message, type) {
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  `;
+  alertPlaceholder.append(wrapper);
+
+
+  setTimeout(() => {
+    const alert = bootstrap.Alert.getOrCreateInstance(wrapper.querySelector('.alert'));
+    alert.close();
+  }, 3000);
+}
+
+btnCarrito.addEventListener("click", () => {
+  const productID = localStorage.getItem("prodID");
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (!carrito.includes(productID)) {
+    carrito.push(productID);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    appendAlert("✅ Producto agregado correctamente al carrito", "success");
+  } else {
+    appendAlert("⚠️ El producto ya está en el carrito", "warning");
+  }
 });
+
+ });
