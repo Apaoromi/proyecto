@@ -1619,4 +1619,85 @@ header h1 {
     margin-top: 10px;
 }
 
+/* Contenedor del Carrito) */
+.carrito {
+    background-color: #ffffff; /* Fondo blanco limpio */
+    padding: 30px; 
+    border-radius: 12px; /* Bordes suaves */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra sutil para que "flote" */
+    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+}
 
+/* Estilo para el Carrito */
+.carrito h2 {
+    color:#154575; /* Color primario de Bootstrap (azul) */
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #154575; /* Línea separadora azul fuerte */
+    margin-bottom: 20px;
+} 
+#lista-carrito {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+#lista-carrito li {
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef; 
+    color: #495057; 
+    font-size: 1rem;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lista-carrito li:last-child {
+    border-bottom: none; 
+}
+.total {
+    padding: 20px 0;
+    border-top: 1px solid #dee2e6; /* Línea divisoria */
+    margin-top: 20px;
+    text-align: right;
+}
+
+.total p {
+    font-size: 1.5rem; /* Hace el texto más grande */
+    font-weight: 700; /* Negrita */
+    color: #28a745; /* Verde para indicar el valor final */
+} 
+.btn-finalizar {
+    /* Si usas las clases de Bootstrap (btn btn-primary) usa el mismo color azul */
+    background-color: #04090e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-finalizar:hover {
+    background-color: #04090f; 
+}.btn-finalizar {
+    
+    background-color: #030609;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-finalizar:hover {
+    background-color: #154575; /* Un azul más oscuro al pasar el ratón */
+}
