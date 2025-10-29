@@ -1,17 +1,17 @@
-
 const btnCarrito = document.querySelector("#btnCarrito");
 const listaCarrito = document.querySelector("#lista-carrito");
 const totalDiv = document.querySelector(".total p");
+
+const DOLAR = 40; // 1 USD = 40 UYU
 
 function appendAlert(msg, tipo) {
   alert(msg);
 }
 
-// Función para actualizar carrito y total
 async function actualizarLista() {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   listaCarrito.innerHTML = "";
-  let total = 0;
+  let totalUSD = 0;
 
   if (carrito.length === 0) {
     listaCarrito.innerHTML = "<li>*Carrito vacío*</li>";
@@ -21,17 +21,25 @@ async function actualizarLista() {
         const response = await fetch(`https://japceibal.github.io/emercado-api/products/${productID}.json`);
         const producto = await response.json();
 
+        // Mostrar precio con símbolo según moneda
+        let precioTexto;
+        if (producto.currency === "UYU") {
+          precioTexto = `$ ${producto.cost}`;
+          totalUSD += producto.cost / DOLAR;
+        } else {
+          precioTexto = `U$S ${producto.cost}`;
+          totalUSD += producto.cost;
+        }
+
         const li = document.createElement("li");
         li.style.display = "flex";
         li.style.justifyContent = "space-between";
         li.style.alignItems = "center";
         li.style.marginBottom = "8px";
 
-        // Contenido del producto: nombre y precio
         const span = document.createElement("span");
-        span.textContent = `${producto.name} - $${producto.cost}`;
+        span.textContent = `${producto.name} - ${precioTexto}`;
 
-        // Botón eliminar
         const btnEliminar = document.createElement("button");
         btnEliminar.textContent = "Eliminar";
         btnEliminar.style.marginLeft = "10px";
@@ -46,17 +54,15 @@ async function actualizarLista() {
         li.appendChild(btnEliminar);
         listaCarrito.appendChild(li);
 
-        total += producto.cost;
       } catch (error) {
         console.error("Error al obtener el producto:", error);
       }
     }
   }
 
-  totalDiv.textContent = `Total Estimado: $${total.toFixed(2)}`;
+  totalDiv.textContent = `Total Estimado: U$S ${totalUSD.toFixed(2)}`;
 }
 
-// Cargar lista al iniciar
 actualizarLista();
 
 btnCarrito.addEventListener("click", async () => {
