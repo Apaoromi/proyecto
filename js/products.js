@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
   const linkUsuario = document.getElementById("link-usuario");
-  
+   
   let productos = [];
 
   const imgContainerTitle = document.querySelector(".img-titulo");
