@@ -1579,7 +1579,7 @@ header h1 {
     margin-bottom: 15px; 
     padding-bottom: 10px; 
     border-bottom: 1px dotted #eee; 
-    /* Se recomienda añadir un min-height para que los divs vacíos sean visibles */
+    
     min-height: 50px; 
     background-color: #f0f0ff; /* Color para distinguir el área de los productos */
 }
@@ -1607,7 +1607,7 @@ header h1 {
     display:grid
 }
 
-/* Estilo para el botón Finalizar Compra, movido del HTML al CSS */
+/* Estilo para el botón Finalizar Compra */
 .btn-finalizar {
     width: 100%; 
     padding: 10px; 
@@ -1624,13 +1624,13 @@ header h1 {
     background-color: #ffffff; /* Fondo blanco limpio */
     padding: 30px; 
     border-radius: 12px; /* Bordes suaves */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra sutil para que "flote" */
-    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+    height: fit-content; 
 }
 
 /* Estilo para el Carrito */
 .carrito h2 {
-    color:#154575; /* Color primario de Bootstrap (azul) */
+    color:#154575; 
     font-size: 1.8rem;
     padding-bottom: 10px;
     border-bottom: 3px solid #154575; /* Línea separadora azul fuerte */
@@ -1654,7 +1654,7 @@ header h1 {
 }
 
 #lista-carrito li:last-child {
-    border-bottom: none; 
+    border-bottom: 2px; 
 }
 .total {
     padding: 20px 0;
@@ -1669,7 +1669,7 @@ header h1 {
     color: #28a745; /* Verde para indicar el valor final */
 } 
 .btn-finalizar {
-    /* Si usas las clases de Bootstrap (btn btn-primary) usa el mismo color azul */
+    
     background-color: #04090e;
     color: white;
     border: none;
@@ -1691,7 +1691,7 @@ header h1 {
     border: none;
     border-radius: 8px;
     padding: 15px;
-    width: 100%; /* Ocupa todo el ancho disponible */
+    width: 100%; 
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
