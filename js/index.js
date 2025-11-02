@@ -33,33 +33,3 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// ✅ --- SWITCH DE TEMA SIEMPRE ACTIVO, FUERA DEL RETURN ---
-document.addEventListener("DOMContentLoaded", () => {
-  const themeToggle = document.getElementById("themeToggle");
-  const toggleLabel = document.querySelector(".toggle-label");
-  const body = document.body;
-
-  if (!themeToggle) return; // Si no existe el toggle, no hacer nada
-
-  // Cargar tema guardado
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    body.classList.add("dark-mode");
-    toggleLabel.textContent = "Modo Claro";
-  } else {
-    toggleLabel.textContent = "Modo Oscuro";
-  }
-
-  // Evento toggle
-  themeToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-
-    if (body.classList.contains("dark-mode")) {
-      localStorage.setItem("theme", "dark");
-      toggleLabel.textContent = "Modo Claro";
-    } else {
-      localStorage.setItem("theme", "light");
-      toggleLabel.textContent = "Modo Oscuro";
-    }
-  });
-});

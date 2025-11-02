@@ -16,8 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     */
    
-});
-window.addEventListener("DOMContentLoaded", () => {
+
   // Crear elemento
   const floatingCart = document.createElement("a");
   floatingCart.href = "cart.html";     // destino al hacer click
