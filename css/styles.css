@@ -5,6 +5,8 @@
   font-family: 'Verdana', serif !important;
 }
 
+
+
 .jumbotron .display-4 {
   font-weight: bold;
 }
@@ -27,7 +29,17 @@ nav a {
     font-size: 3.5rem;
   }
 }
-
+/* ----------------------------------------------- */
+/* MODO OSCURO: IF dark-mode está activo, cambia la imagen */
+/* ----------------------------------------------- */
+body.dark-mode .jumbotron {
+    /* Sobrescribe el fondo con la imagen oscura */
+    background: url('../img/Modo-oscuro-2.jpeg'); /* IMAGEN OSCURA */
+    /* Mantenemos el resto de propiedades para asegurar que se vea bien */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /* Escritorio  */
 .jumbotron {
   height: 60vh;
