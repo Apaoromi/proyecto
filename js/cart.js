@@ -123,14 +123,21 @@ async function actualizarLista() {
 actualizarLista();
 
 
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));  
+    const linkUsuario = document.getElementById("link-usuario");
 
 
-/*
-Agregar sección de "Tipo de envío", donde permita elegir entre las opciones "Premium 2 a 5 días (15%)", "Express 5 a 8 días (7%)" y "Standard 12 a 15 días (5%)".
-Agregar sección de "Dirección de envío", donde contenga los campos de texto "Departamento", "Localidad", "Calle", "Número" y "Esquina".
-Agregar sección de "Forma de pago", donde permita elegir como mínimo dos opciones de pago diferentes. Las sugeridas son "Tarjeta de crédito" y "Transferencia bancaria".
-Agregar sección de "Costos", donde se muestren los valores del "Subtotal" (suma de todos los subtotales de cada producto), el "Costo de envío" (subtotal multiplicado por el porcentaje del envío seleccionado) y el "Total" (costo final de la compra).
-Agregar botón "Finalizar compra".
-*/
+    if (usuarioGuardado && linkUsuario) {
+    // Cambiar texto y comportamiento
+    linkUsuario.textContent = usuarioGuardado.usuario + " (Mi perfil)";
+    linkUsuario.href = "#";
+    linkUsuario.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "my-profile.html";
+        });
+    }
+
+
+
 
 
