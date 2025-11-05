@@ -51,6 +51,32 @@
  <ul id="lista-carrito">
 <li>*Carrito vacío*</li> 
  </ul>
+
+ <h3>Tipo de envío</h3>
+  <select id="tipo-envio">
+    <option value="standard">Envío estándar (3-5 días hábiles)</option>
+    <option value="express">Envío express (1-2 días hábiles)</option>
+    <option value="premium">Envío overnight (1 día hábil)</option>
+  </select>
+
+<h3>Dirección de envío</h3>
+<input type="text" id="departamento" placeholder="Departamento"><br>
+<input type="text" id="localidad" placeholder="Localidad"><br>
+<input type="text" id="calle" placeholder="Calle"><br>
+<input type="text" id="numero" placeholder="Número"><br>
+<input type="text" id="esquina" placeholder="Esquina"><br>
+
+<h3>Forma de pago</h3>
+<label><input type="radio" name="pago" value="tarjeta"> Tarjeta de crédito</label><br>
+<label><input type="radio" name="pago" value="transferencia"> Transferencia bancaria</label><br>
+
+<h3>Costos</h3>
+
+<p id="envio">Costo de envío: U$S 0</p>
+
+
+
+
  
 <div class="total">
 <p>Total Estimado: $0.00</p>
