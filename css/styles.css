@@ -34,7 +34,7 @@ nav a {
 /* ----------------------------------------------- */
 body.dark-mode .jumbotron {
     /* Sobrescribe el fondo con la imagen oscura */
-    background: url('../img/Modo-oscuro-2.jpeg'); /* IMAGEN OSCURA */
+    background: url('../img/oscuro-modo.jpg.jpeg'); /* IMAGEN OSCURA */
     /* Mantenemos el resto de propiedades para asegurar que se vea bien */
     background-size: cover;
     background-position: center;
