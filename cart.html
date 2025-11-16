@@ -2,152 +2,180 @@
 <html lang="es">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>eMercado - Carrito</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <!-- El CSS específico del carrito lo reemplazaremos luego -->
+  <link href="css/cart.css" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="link-usuario" href="login.html">Registrarse</a>
-          </li>
-        </ul>
-      </div>
-       <div class="theme-toggle" id="themeToggle">
-        <span class="toggle-label">Modo Oscuro</span>
-        <div class="toggle-switch"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+  <div class="container">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+      data-bs-target="#navbarNav" aria-controls="navbarNav" 
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav w-100 justify-content-between">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categorías</a></li>
+        <li class="nav-item"><a class="nav-link" href="sell.html">Vender</a></li>
+        <li class="nav-item"><a class="nav-link" id="link-usuario" href="login.html">Registrarse</a></li>
+      </ul>
     </div>
-  </nav>
-  <main>
-  
-      <header>
-        <h1>🛒 Carrito de Compras</h1>
+
+    <!-- Botón de modo oscuro -->
+    <button class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Alternar modo oscuro">
+      <span class="toggle-label">Modo Oscuro</span>
+      <div class="toggle-switch" aria-hidden="true"></div>
+    </button>
+
+  </div>
+</nav>
+
+
+
+  <main class="container page-main">
+    <header class="page-header">
+      <h1>🛒 Carrito de Compras</h1>
     </header>
 
-    <div class="contenedor-principal">
-        
-  
- <aside class="carrito">
- <h2>Tu Carrito</h2>
-            
- <ul id="lista-carrito">
-<li>*Carrito vacío*</li> 
- </ul>
+    <!-- CONTENEDOR PRINCIPAL: IZQUIERDA = PRODUCTOS, DERECHA = CARRITO -->
+    <section class="contenedor-principal" style="display:flex; gap:24px; align-items:flex-start; margin-top:18px;">
 
- <h3>Tipo de envío</h3>
-  <select id="tipo-envio">
-    <option value="standard">Envío estándar (3-5 días hábiles)</option>
-    <option value="express">Envío express (1-2 días hábiles)</option>
-    <option value="premium">Envío overnight (1 día hábil)</option>
-  </select>
+      <!-- IZQUIERDA: zona donde tu JS o sistema deben mostrar los productos (mantenemos el placeholder) -->
+      <section class="productos" style="flex:2;">
+        <div class="productos-inner">
+          <!-- Si tu sistema muestra tarjetas de productos aquí, se adaptará -->
+          <!-- Mantengo un contenedor con id útil para debug/preview -->
+          <div id="product-list" class="product-list-placeholder">
+             <ul id="lista-carrito">
+          <li>*Carrito vacío*</li>
+        </ul>
+            <p class="alerta-vacio">Panel de productos (visual) — el carrito se gestiona en la derecha.</p>
+          </div>
+        </div>
+      </section>
 
-<h3>Dirección de envío</h3>
-<input type="text" id="departamento" placeholder="Departamento"><br>
-<input type="text" id="localidad" placeholder="Localidad"><br>
-<input type="text" id="calle" placeholder="Calle"><br>
-<input type="text" id="numero" placeholder="Número"><br>
-<input type="text" id="esquina" placeholder="Esquina"><br>
+      <!-- DERECHA: resumen / formulario de envío y pago (esto lo usa tu JS) -->
+      <aside class="carrito" style="flex:1;">
+        <h2>Tu Carrito</h2>
 
-<h3>Forma de pago</h3>
-<label><input type="radio" name="pago" value="tarjeta"> Tarjeta de crédito</label><br>
-<label><input type="radio" name="pago" value="transferencia"> Transferencia bancaria</label><br>
+        <!-- Lista donde el JS agrega li por producto: ID requerido = lista-carrito -->
+       
 
-<h3>Costos</h3>
+        <!-- Tipo de envío (id esperado por tu script: tipo-envio) -->
+        <div class="campo">
+          <label for="tipo-envio">Tipo de envío</label>
+          <select id="tipo-envio" name="tipo-envio">
+            <option value="standard">Envío estándar (3-5 días hábiles)</option>
+            <option value="express">Envío express (1-2 días hábiles)</option>
+            <option value="premium">Envío overnight (1 día hábil)</option>
+          </select>
+        </div>
 
-<p id="envio">Costo de envío: U$S 0</p>
+        <!-- Dirección -->
+        <h3 style="margin-top:14px;">Dirección de envío</h3>
+        <div class="inputs-direccion">
+          <input type="text" id="departamento" placeholder="Departamento"><br>
+          <input type="text" id="localidad" placeholder="Localidad"><br>
+          <input type="text" id="calle" placeholder="Calle"><br>
+          <input type="text" id="numero" placeholder="Número"><br>
+          <input type="text" id="esquina" placeholder="Esquina"><br>
+        </div>
 
+        <!-- Forma de pago -->
+        <h3 style="margin-top:14px;">Forma de pago</h3>
+        <div class="metodos-pago">
+          <label><input type="radio" name="pago" value="tarjeta"> Tarjeta de crédito</label><br>
+          <label><input type="radio" name="pago" value="transferencia"> Transferencia bancaria</label>
+          <div class="icons-pago" aria-hidden="true" style="margin-top:8px;">
+            <span class="fa fa-cc-visa" title="Visa"></span>
+            <span class="fa fa-cc-mastercard" title="Mastercard"></span>
+            <span class="fa fa-cc-amex" title="Amex"></span>
+          </div>
+        </div>
 
+        <!-- Costos: muestro envío (id=envio) y lo dejo listo para mostrar valor -->
+        <h3 style="margin-top:14px;">Costos</h3>
+        <p id="envio">Costo de envío: U$S <span id="envio-valor">0.00</span></p>
 
+        <!-- TOTAL: la variable .total p es usada por tu JS (totalDiv = document.querySelector('.total p')) -->
+        <div class="total" style="margin-top:12px;">
+          <!-- Mantengo un <p> único para asegurar compatibilidad con tu selecto actual -->
+          <p>Total Estimado: U$S <span id="total-valor">0.00</span></p>
+        </div>
 
- 
-<div class="total">
-<p>Total Estimado: $0.00</p>
-</div>
-            
-<button class="btn-finalizar">
-Finalizar Compra
-</button>
-</aside>
-
-</div>
- </div>
+        <!-- Botón finalizar: conserva clase btn-finalizar -->
+        <button class="btn-finalizar" id="btn-finalizar" style="margin-top:12px;">
+          Finalizar Compra
+        </button>
+      </aside>
+    </section>
   </main>
-  <footer class="text-muted">
+
+  <footer class="text-muted" style="margin-top:30px;">
     <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
+      <p class="float-end"><a href="#">Volver arriba</a></p>
       <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
     </div>
   </footer>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+
+  <!-- Spinner (mantengo estructura) -->
+  <div id="spinner-wrapper" style="display:none;">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <!-- Modal placeholder para finalizar compra (lo completamos luego con contenido/estilos) -->
+  <div id="modal-finalizar" class="modal-hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+    <div class="modal-card">
+      <h2 id="modal-title">Finaliza tu compra</h2>
+      <p>Aquí seleccionarás la dirección (placeholder).</p>
+      <div class="modal-actions">
+        <button id="modal-close">Cancelar</button>
+        <button id="modal-confirm">Finalizar compra</button>
+      </div>
     </div>
   </div>
+
+  <!-- Scripts (no los modifiqué) -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
   <script src="navbar.js"></script>
- <script>
-// Función para cambiar entre modo claro y oscuro
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    
-    // Guardar preferencia en localStorage
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDarkMode);
-    
-    // Actualizar texto del toggle
-    const toggleLabel = document.querySelector('.toggle-label');
-    toggleLabel.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
-}
 
-// Cargar preferencia de tema al iniciar
-function loadTheme() {
-    const darkMode = localStorage.getItem('darkMode') === 'true';
-    
-    if (darkMode) {
-        document.body.classList.add('dark-mode');
-        document.querySelector('.toggle-label').textContent = 'Modo Claro';
+  <!-- Toggle dark-mode (tu código existente se mantiene; lo guardé aquí por si falta) -->
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+      const toggleLabel = document.querySelector('.toggle-label');
+      if (toggleLabel) toggleLabel.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
     }
-    // Si no hay preferencia guardada, se queda en modo claro (predeterminado)
-}
+    function loadTheme() {
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      if (darkMode) {
+        document.body.classList.add('dark-mode');
+        const toggleLabel = document.querySelector('.toggle-label');
+        if (toggleLabel) toggleLabel.textContent = 'Modo Claro';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTheme();
+      const tt = document.getElementById('themeToggle');
+      if (tt) tt.addEventListener('click', toggleTheme);
+    });
+  </script>
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    loadTheme();
-    
-    // Configurar el toggle del tema
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-});
-</script>
- <script src="js/dark-mode.js"></script>
-    <script src="navbar.js"></script>
 </body>
-
 </html>
