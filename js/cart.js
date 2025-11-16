@@ -213,3 +213,61 @@ function escapeHtml(str) {
 }
 
 document.addEventListener("DOMContentLoaded", actualizarLista);
+
+
+// ================================
+// FINALIZAR COMPRA CON VALIDACIONES
+// ================================
+
+// Tomamos referencias a los inputs de dirección y forma de pago
+const camposDireccion = ["departamento", "localidad", "calle", "numero", "esquina"];
+const btnFinalizarCompra = document.getElementById("btn-finalizar");
+
+btnFinalizarCompra.addEventListener("click", () => {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (carrito.length === 0) {
+    appendAlert("El carrito está vacío.");
+    return;
+  }
+
+  // Validar dirección
+  for (const id of camposDireccion) {
+    const input = document.getElementById(id);
+    if (!input || input.value.trim() === "") {
+      appendAlert(`Por favor completa el campo "${id}".`);
+      return;
+    }
+  }
+
+  // Validar tipo de envío
+  const tipoEnvio = document.getElementById("tipo-envio").value;
+  if (!tipoEnvio) {
+    appendAlert("Selecciona un tipo de envío.");
+    return;
+  }
+
+  // Validar cantidades de productos
+  const items = document.querySelectorAll("#product-list .qty-number");
+  for (const item of items) {
+    const cantidad = Number(item.textContent);
+    if (isNaN(cantidad) || cantidad <= 0) {
+      appendAlert("Cada producto debe tener una cantidad mayor a 0.");
+      return;
+    }
+  }
+
+  // Validar forma de pago
+  const formaPago = document.querySelector('input[name="pago"]:checked');
+  if (!formaPago) {
+    appendAlert("Selecciona una forma de pago.");
+    return;
+  }
+
+  // Si todo está correcto, mostramos modal o alert de éxito
+  appendAlert("✅ Compra finalizada con éxito. Gracias por tu compra.");
+
+  // Limpiar carrito
+  localStorage.removeItem("carrito");
+  actualizarLista();
+});
