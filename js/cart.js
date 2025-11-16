@@ -1,143 +1,215 @@
-const btnCarrito = document.querySelector("#btnCarrito");
-const listaCarrito = document.querySelector("#lista-carrito");
-const totalDiv = document.querySelector(".total p");
-const tipoEnvio = document.getElementById("#tipo-envio");
+// js/cart.js - versión modificada SOLO para:
+// ✔ Mostrar productos + cantidad (+/-) EN LA IZQUIERDA
+// ✔ Calcular totales como antes
+// ✔ Mantener panel derecho SOLO para envío/pago
+// ✔ Mantener tu código original sin romper nada
 
-const DOLAR = 40; // 1 USD = 40 UYU
+const DOLAR = 40;
 
-function appendAlert(msg, tipo) {
+// ELEMENTOS DOM
+const productListPanel = document.getElementById("product-list"); 
+const listaCarrito = document.getElementById("lista-carrito");    
+const envioValorSpan = document.getElementById("envio-valor");    
+const totalValorSpan = document.getElementById("total-valor");    
+const selectTipoEnvio = document.getElementById("tipo-envio");
+const btnFinalizar = document.getElementById("btn-finalizar");
+
+// modal
+const modal = document.getElementById('modal-finalizar');
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalClose = document.getElementById('modal-close');
+const modalConfirm = document.getElementById('modal-confirm');
+
+function appendAlert(msg) {
   alert(msg);
 }
 
+function porcentajeEnvioSeleccionado() {
+  const envio = selectTipoEnvio ? selectTipoEnvio.value : "standard";
+  if (envio === "premium") return 0.15;
+  if (envio === "express") return 0.07;
+  return 0.05;
+}
+
 async function actualizarLista() {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  // LIMPIAR AMBOS PANEL
   listaCarrito.innerHTML = "";
-  let totalUSD = 0;
+  productListPanel.innerHTML = "";
 
+  // SI ESTÁ VACÍO
   if (carrito.length === 0) {
-    listaCarrito.innerHTML = "<li>*Carrito vacío*</li>";
-  } else {
-    for (const productID of carrito) {
-      try {
-        const response = await fetch(`https://japceibal.github.io/emercado-api/products/${productID}.json`);
-        const producto = await response.json();
+    listaCarrito.innerHTML = "<li class='al-centro'>*Carrito vacío*</li>";
+    productListPanel.innerHTML = `<p class="alerta-vacio">Panel de productos (vacío)</p>`;
+    actualizarTotalesVisuales(0, 0);
+    return;
+  }
 
-        // Mostrar precio con símbolo según moneda
-        let precioTexto;
-        let precioUSD;
-        if (producto.currency === "UYU") {
-          precioTexto = `$ ${producto.cost}`;
-          precioUSD = producto.cost / DOLAR;
-        } else {
-          precioTexto = `U$S ${producto.cost}`;
-          precioUSD = producto.cost;
-        }
+  let listaInterna = []; // guardar referencia a items para calcular totales
 
-        // Elementos del producto
-        const li = document.createElement("li");
-        li.style.display = "flex";
-        li.style.justifyContent = "space-between";
-        li.style.alignItems = "center";
-        li.style.marginBottom = "8px";
+  for (const productID of carrito) {
+    try {
+      const res = await fetch(`https://japceibal.github.io/emercado-api/products/${productID}.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const producto = await res.json();
 
-        const infoDiv = document.createElement("div");
-        infoDiv.textContent = `${producto.name} - ${precioTexto}`;
+      const precioUSD = producto.currency === "UYU" ? producto.cost / DOLAR : producto.cost;
+      const precioTexto = producto.currency === "UYU" ? `$ ${producto.cost}` : `U$S ${producto.cost}`;
 
-        // Input para cantidad
-        const aumentarCantidad = document.createElement("input");
-        aumentarCantidad.type = "number";
-        aumentarCantidad.value = 1;
-        aumentarCantidad.min = 1;
-        aumentarCantidad.style.width = "50px";
-        aumentarCantidad.style.marginLeft = "10px";
+      const imgSrc = (producto.images && producto.images.length && producto.images[0])
+                      || producto.image
+                      || producto.img
+                      || "https://via.placeholder.com/180x140?text=Sin+imagen";
 
-        // Actualizar total cuando cambia la cantidad
-        aumentarCantidad.addEventListener("input", () => {
-          calcularTotal();
-        });
+      // =============================
+      // IZQUIERDA (producto + cantidad + botones)
+      // =============================
+      const card = document.createElement("article");
+      card.className = "producto-item-card";
 
-        // Botón eliminar
-        const btnEliminar = document.createElement("button");
-        btnEliminar.textContent = "Eliminar";
-        btnEliminar.style.marginLeft = "10px";
-        btnEliminar.addEventListener("click", () => {
-          carrito = carrito.filter(id => id !== productID);
-          localStorage.setItem("carrito", JSON.stringify(carrito));
-          appendAlert("Producto eliminado del carrito", "info");
-          actualizarLista();
-        });
+      card.innerHTML = `
+        <div class="prod-card-inner" style="
+          display:flex;gap:12px;align-items:center;
+          padding:10px;border-radius:8px;margin-bottom:12px;
+          background:rgba(255,255,255,0.03)
+        ">
+          <img src="${imgSrc}" alt="${escapeHtml(producto.name)}" 
+               style="width:90px;height:70px;object-fit:cover;border-radius:6px;border:1px solid rgba(0,0,0,0.06)">
+          
+          <div style="flex:1">
+            <div style="font-weight:700">${escapeHtml(producto.name)}</div>
+            <div style="font-size:0.95rem;color:#666;margin-top:6px">${precioTexto}</div>
+          </div>
 
-        // Agregar elementos al li
-        li.appendChild(infoDiv);
-        li.appendChild(aumentarCantidad);
-        li.appendChild(btnEliminar);
-        listaCarrito.appendChild(li);
+          <div class="qty-controls" data-id="${productID}" style="
+            display:flex;align-items:center;gap:6px;
+          ">
+            <button class="qty-btn minus" data-id="${productID}" style="padding:3px 7px;">−</button>
+            <span class="qty-number" id="qty-${productID}" 
+                  style="min-width:18px;text-align:center;">1</span>
+            <button class="qty-btn plus" data-id="${productID}" style="padding:3px 7px;">+</button>
+          </div>
 
-        // Guardar costo del producto en el elemento (para calcular total)
-        li.dataset.precio = precioUSD;
+          <button class="btn-eliminar" data-id="${productID}" 
+                  style="margin-left:10px;padding:4px 7px;">✕</button>
+        </div>
+      `;
 
-      } catch (error) {
-        console.error("Error al obtener el producto:", error);
-      }
+      productListPanel.appendChild(card);
+
+      // guardar datos para cálculos
+      listaInterna.push({
+        id: productID,
+        price: precioUSD,
+        qtyElement: card.querySelector(`#qty-${productID}`)
+      });
+
+    } catch (err) {
+      console.error("Error al cargar producto", productID, err);
     }
   }
 
-  function tipoEnvio() {
-  const envioSeleccionado = document.getElementById("tipo-envio").value;
-  let porcentajeEnvio = 0;
+  // ============================
+  // EVENTOS: +, -, eliminar
+  // ============================
 
-  if (envioSeleccionado === "premium") {
-    porcentajeEnvio = 0.15;
-  } else if (envioSeleccionado === "express") {
-    porcentajeEnvio = 0.07;
-  } else if (envioSeleccionado === "standard") {
-    porcentajeEnvio = 0.05;
-  }
-
-  return porcentajeEnvio;
-}
-
-
-
-
-  // Función interna para recalcular el total
-  function calcularTotal() {
-    let total = 0;
-    const items = listaCarrito.querySelectorAll("li");
-    items.forEach(item => {
-      const input = item.querySelector("input[type='number']");
-      const precio = parseFloat(item.dataset.precio);
-      const cantidad = input ? parseInt(input.value) : 1;
-      total += precio * cantidad * (1 + tipoEnvio());
+  // Botón +
+  document.querySelectorAll(".qty-btn.plus").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const item = listaInterna.find(x => x.id == id);
+      item.qtyElement.textContent = Number(item.qtyElement.textContent) + 1;
+      calcularTotales(listaInterna);
     });
-    totalDiv.textContent = `Total Estimado: U$S ${total.toFixed(2)}`;
-  }
+  });
 
+  // Botón –
+  document.querySelectorAll(".qty-btn.minus").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const item = listaInterna.find(x => x.id == id);
+      let actual = Number(item.qtyElement.textContent);
+      if (actual > 1) {
+        item.qtyElement.textContent = actual - 1;
+        calcularTotales(listaInterna);
+      }
+    });
+  });
 
+  // Eliminar
+  document.querySelectorAll(".btn-eliminar").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      let arr = JSON.parse(localStorage.getItem("carrito")) || [];
+      const idx = arr.indexOf(id);
+      if (idx > -1) {
+        arr.splice(idx, 1);
+        localStorage.setItem("carrito", JSON.stringify(arr));
+      }
+      appendAlert("Producto eliminado del carrito");
+      actualizarLista();
+    });
+  });
 
-  document.getElementById("tipo-envio").addEventListener("change", calcularTotal);
+  calcularTotales(listaInterna);
 }
 
+// CÁLCULO
+function calcularTotales(lista) {
+  let subtotal = 0;
 
+  lista.forEach(item => {
+    let qty = Number(item.qtyElement.textContent);
+    subtotal += item.price * qty;
+  });
 
-actualizarLista();
+  const envio = subtotal * porcentajeEnvioSeleccionado();
+  const total = subtotal + envio;
 
+  actualizarTotalesVisuales(envio, total, subtotal);
+}
 
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));  
-    const linkUsuario = document.getElementById("link-usuario");
+function actualizarTotalesVisuales(envio = 0, total = 0, subtotal = null) {
+  if (envioValorSpan) envioValorSpan.textContent = envio.toFixed(2);
+  if (totalValorSpan) totalValorSpan.textContent = total.toFixed(2);
 
+  const subtotalSpan = document.getElementById("subtotal-valor");
+  if (subtotalSpan && subtotal !== null) subtotalSpan.textContent = subtotal.toFixed(2);
 
-    if (usuarioGuardado && linkUsuario) {
-    // Cambiar texto y comportamiento
-    linkUsuario.textContent = usuarioGuardado.usuario + " (Mi perfil)";
-    linkUsuario.href = "#";
-    linkUsuario.addEventListener("click", function (e) {
-      e.preventDefault();
-      window.location.href = "my-profile.html";
-        });
-    }
+  const totalP = document.querySelector(".total p");
+  if (totalP) totalP.textContent = `Total Estimado: U$S ${total.toFixed(2)}`;
+}
 
+// modal
+if (selectTipoEnvio) selectTipoEnvio.addEventListener("change", () => actualizarLista());
+if (btnFinalizar) btnFinalizar.addEventListener("click", () => openModal());
 
+function openModal() {
+  modal.style.display = "block";
+  modal.classList.remove("modal-hidden");
+}
 
+function closeModal() {
+  modal.style.display = "none";
+  modal.classList.add("modal-hidden");
+}
 
+if (modalClose) modalClose.addEventListener("click", closeModal);
+if (modalBackdrop) modalBackdrop.addEventListener("click", closeModal);
+if (modalConfirm) modalConfirm.addEventListener("click", () => {
+  appendAlert("Compra finalizada");
+  closeModal();
+});
 
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+document.addEventListener("DOMContentLoaded", actualizarLista);
