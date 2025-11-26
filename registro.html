@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>eMercado - Registro</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700,900" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/iconoPestaña.png">
+  <style>
+    body {
+      background-color: rgb(248, 249, 250);
+    }
+  </style>
+
+</head>
+
+
+<body>
+  <main class="login">
+    <div id="registro">
+      <!-- Contenedor para icono y título -->
+      <div class="titulo-con-icono">
+        <!-- SVG a la izquierda -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 70 80">
+          <path fill="#00635D" d="M40.7,44.1c0-18,10.8-25.7,10.8-30.1c0-5.9-6.6-5.6-6.6-5.6C25,8.4,10.2,24.8,10.2,44.1
+          c0,19.8,14.8,35.8,35.6,35.8c3.4,0,5.7-2.5,5.7-5.6C51.5,69.6,40.7,61.8,40.7,44.1z" />
+        </svg>
+        <h2>Registro de usuario</h2>
+      </div>
+
+      <form id="formRegistro">
+        <div class="formulario">
+          <label for="imagen" style="display: none;">Imagen:</label>
+          <input id="imagen" type="image" name="imagen" placeholder="Ingrese la URL de su imagen" style="display: none;">
+        </div>
+        <div class="formulario">
+          <label for="nombre">Nombre:</label>
+          <input id="nombre" type="text" name="nombre" placeholder="Ingrese su nombre" required>
+        </div>
+        <div class="formulario">
+          <label for="apellido">Apellido:</label>
+          <input id="apellido" type="text" name="apellido" placeholder="Ingrese su apellido" required>
+        </div>
+        <div class="formulario">
+          <label for="email">Email:</label>
+          <input id="email" type="email" name="email" placeholder="Ingrese su email" required>
+        </div>
+        <div class="formulario">
+          <label for="telefono">Teléfono:</label>
+          <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su teléfono" required>
+        </div>
+        <hr>
+        <div class="formulario">
+          <label for="usuario">Usuario:</label>
+          <input id="usuario" type="text" name="usuario" placeholder="Ingrese su usuario" required>
+        </div>
+        <div class="formulario">
+          <label for="password">Contraseña:</label>
+          <input id="password" type="password" name="password" placeholder="Ingrese su contraseña" required>
+        </div>
+        <div class="formulario">
+          <label for="password2">Repetir contraseña:</label>
+          <input id="password2" type="password" name="password2" placeholder="Repita su contraseña" required>
+        </div>
+        <button type="submit" id="btn-form">Registrarse</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="text-muted" id="footer-div">
+    <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+    <div>
+      <a href="index.html" class="btn-inicio">Volver a Inicio</a>
+    </div>
+  </footer>
+
+  <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+    <p>Datos guardados correctamente</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+    <p>Los datos ingresados no cumplen con los requisitos solicitados</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/registro.js"></script>
+  <script src="navbar.js"></script>
+
+<script>
+
+
+
+
+</script>
+ <script src="js/dark-mode.js"></script>
+<script src="js/navbar.js"></script>
+
+</body>
+
+
+</html>
