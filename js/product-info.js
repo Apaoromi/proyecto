@@ -266,15 +266,25 @@ function appendAlert(message, type) {
 
 btnCarrito.addEventListener("click", () => {
   const productID = localStorage.getItem("prodID");
+
+  // Carrito estructurado: [{ id_prod: 101, cant: 1 }]
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  if (!carrito.includes(productID)) {
-    carrito.push(productID);
+  // Buscar si ya existe
+  const existente = carrito.find(item => item.id_prod == productID);
+
+  if (!existente) {
+    carrito.push({
+      id_prod: productID,
+      cant: 1   // la manipula otro archivo luego
+    });
+
     localStorage.setItem("carrito", JSON.stringify(carrito));
     appendAlert("✅ Producto agregado correctamente al carrito", "success");
   } else {
     appendAlert("⚠️ El producto ya está en el carrito", "warning");
   }
 });
+
 
  });
