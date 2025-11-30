@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 
+// Necesario para poder usar __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -14,46 +15,47 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
 
+// ----------------------------------------------------
+//  Usuario simulado (contraseña: "1234")
+// ----------------------------------------------------
+const fakePasswordHash = await bcrypt.hash("1234", 10);
 
-
-// --- Usuario simulado ---
 const fakeUser = {
   id: 1,
   usuario: "admin",
-  // contraseña original: "1234"
-  password: await bcrypt.hash("1234", 10)
+  password: fakePasswordHash
 };
 
 
-
-// ---------- Endpoint POST /login ----------
+// ----------------------------------------------------
+//  POST /login → genera el token (expira en 30 min)
+// ----------------------------------------------------
 app.post("/login", async (req, res) => {
   try {
     const { usuario, password } = req.body;
+
     if (!usuario || !password) {
       return res.status(400).json({ error: "usuario y password requeridos" });
     }
-
 
     if (usuario !== fakeUser.usuario) {
       return res.status(401).json({ error: "Usuario no encontrado" });
     }
 
-    // --- comparar password ingresada con hash ---
     const ok = await bcrypt.compare(password, fakeUser.password);
     if (!ok) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-
     const payload = { id: fakeUser.id, usuario: fakeUser.usuario };
-    const token = jwt.sign(payload, process.env.JWT_SECRET || "clave_de_prueba", {
-      expiresIn: "1h"
-    });
 
+    //  Token expira en 30 min
+    const token = jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "30m" }
+    );
 
     return res.json({ mensaje: "Login exitoso", token });
 
@@ -63,9 +65,53 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// ---- Ruta principal si la tenías ----
+
+// ----------------------------------------------------
+//  Middleware para validar token
+// ----------------------------------------------------
+function verificarToken(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ error: "Token no enviado" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "clave_de_prueba");
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: "Token inválido o expirado" });
+  }
+}
+
+
+// ----------------------------------------------------
+//  Ruta protegida (solo con token válido)
+// ----------------------------------------------------
+app.get("/perfil", verificarToken, (req, res) => {
+  res.json({
+    mensaje: "Accediste al perfil correctamente",
+    usuario: req.user.usuario,
+    id: req.user.id
+  });
+});
+
+
+// ----------------------------------------------------
+//  Ruta principal
+// ----------------------------------------------------
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.listen(3000, () => console.log("Servidor en http://localhost:3000"));
+
+// ----------------------------------------------------
+//  Servidor
+// ----------------------------------------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
+  console.log(`Servidor funcionando en http://localhost:${PORT}`)
+);
