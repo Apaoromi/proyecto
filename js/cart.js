@@ -1,8 +1,7 @@
-// js/cart.js - versión modificada SOLO para:
-// ✔ Mostrar productos + cantidad (+/-) EN LA IZQUIERDA
-// ✔ Calcular totales como antes
-// ✔ Mantener panel derecho SOLO para envío/pago
-// ✔ Mantener tu código original sin romper nada
+//  Mostrar productos + cantidad (+/-) EN LA IZQUIERDA
+//  Calcular totales como antes
+//  Mantener panel derecho SOLO para envío/pago
+//  Mantener tu código original sin romper nada
 
 const DOLAR = 40;
 
@@ -48,7 +47,10 @@ async function actualizarLista() {
 
   let listaInterna = []; // guardar referencia a items para calcular totales
 
-  for (const productID of carrito) {
+  for (const item of carrito) {
+  const productID = item.id_prod;
+  const cantInicial = item.cant;
+
     try {
       const res = await fetch(`https://japceibal.github.io/emercado-api/products/${productID}.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -99,11 +101,11 @@ async function actualizarLista() {
       productListPanel.appendChild(card);
 
       // guardar datos para cálculos
-      listaInterna.push({
-        id: productID,
-        price: precioUSD,
-        qtyElement: card.querySelector(`#qty-${productID}`)
-      });
+       listaInterna.push({
+    id: productID,
+    price: precioUSD,
+    qtyElement: card.querySelector(`#qty-${productID}`)
+  });
 
     } catch (err) {
       console.error("Error al cargar producto", productID, err);
@@ -125,17 +127,38 @@ async function actualizarLista() {
   });
 
   // Botón –
-  document.querySelectorAll(".qty-btn.minus").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      const item = listaInterna.find(x => x.id == id);
-      let actual = Number(item.qtyElement.textContent);
-      if (actual > 1) {
-        item.qtyElement.textContent = actual - 1;
-        calcularTotales(listaInterna);
-      }
-    });
+  btn.addEventListener("click", () => {
+  const id = btn.dataset.id;
+  const item = listaInterna.find(x => x.id == id);
+  item.qtyElement.textContent = Number(item.qtyElement.textContent) + 1;
+
+  // Guardar cambio en el localStorage
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let obj = carrito.find(x => x.id_prod == id);
+  obj.cant = Number(item.qtyElement.textContent);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
+  calcularTotales(listaInterna);
+});
+
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    const item = listaInterna.find(x => x.id == id);
+    let actual = Number(item.qtyElement.textContent);
+
+    if (actual > 1) {
+      item.qtyElement.textContent = actual - 1;
+
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      let obj = carrito.find(x => x.id_prod == id);
+      obj.cant = Number(item.qtyElement.textContent);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
+      calcularTotales(listaInterna);
+    }
   });
+
+
 
   // Eliminar
   document.querySelectorAll(".btn-eliminar").forEach(btn => {
