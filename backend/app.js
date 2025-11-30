@@ -1,125 +1,117 @@
-const express = require("express");
-const cors = require("cors");
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
+import express from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+dotenv.config();
+
+// Necesario para poder usar __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
-// Cargar usuarios del archivo usuarios.json
-function cargarUsuarios() {
-  const data = fs.readFileSync("usuarios.json", "utf8");
-  return JSON.parse(data);
+
+// ----------------------------------------------------
+//  Usuario simulado (contraseña: "1234")
+// ----------------------------------------------------
+const fakePasswordHash = await bcrypt.hash("1234", 10);
+
+const fakeUser = {
+  id: 1,
+  usuario: "admin",
+  password: fakePasswordHash
+};
+
+
+// ----------------------------------------------------
+//  POST /login → genera el token (expira en 30 min)
+// ----------------------------------------------------
+app.post("/login", async (req, res) => {
+  try {
+    const { usuario, password } = req.body;
+
+    if (!usuario || !password) {
+      return res.status(400).json({ error: "usuario y password requeridos" });
+    }
+
+    if (usuario !== fakeUser.usuario) {
+      return res.status(401).json({ error: "Usuario no encontrado" });
+    }
+
+    const ok = await bcrypt.compare(password, fakeUser.password);
+    if (!ok) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
+    const payload = { id: fakeUser.id, usuario: fakeUser.usuario };
+
+    //  Token expira en 30 min
+    const token = jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "30m" }
+    );
+
+    return res.json({ mensaje: "Login exitoso", token });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Error interno" });
+  }
+});
+
+
+// ----------------------------------------------------
+//  Middleware para validar token
+// ----------------------------------------------------
+function verificarToken(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ error: "Token no enviado" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "clave_de_prueba");
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: "Token inválido o expirado" });
+  }
 }
 
-// POST /login
-app.post("/login", (req, res) => {
-  const { usuario, password } = req.body;
 
-  if (!usuario || !password) {
-    return res.status(400).json({ error: "Faltan datos" });
-  }
-
-  const usuarios = cargarUsuarios();
-
-  const encontrado = usuarios.find(u => u.usuario === usuario && u.password === password);
-
-  if (!encontrado) {
-    return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
-  }
-
-  // Crear el token
-  const token = jwt.sign(
-    { usuario: encontrado.usuario, nombre: encontrado.nombre },
-    "CLAVE_SECRETA_SUPER_SEGURA",
-    { expiresIn: "2h" }
-  );
-
+// ----------------------------------------------------
+//  Ruta protegida (solo con token válido)
+// ----------------------------------------------------
+app.get("/perfil", verificarToken, (req, res) => {
   res.json({
-    mensaje: "Login exitoso",
-    token,
-    usuario: {
-      nombre: encontrado.nombre,
-      apellido: encontrado.apellido,
-      email: encontrado.email
-    }
+    mensaje: "Accediste al perfil correctamente",
+    usuario: req.user.usuario,
+    id: req.user.id
   });
 });
 
-// Iniciar el servidor
-app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+
+// ----------------------------------------------------
+//  Ruta principal
+// ----------------------------------------------------
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 
-const express = require("express");
-const fs = require("fs");
-const cors = require("cors");
-const jwt = require("jsonwebtoken");
-
-app.use(cors());
-app.use(express.json());
-
-const SECRET_KEY = "clave_super_secreta";
-
-// Leer usuarios desde JSON
-function leerUsuarios() {
-  const data = fs.readFileSync("usuarios.json", "utf8");
-  return JSON.parse(data);
-}
-
-// Guardar usuarios en JSON
-function guardarUsuarios(usuarios) {
-  fs.writeFileSync("usuarios.json", JSON.stringify(usuarios, null, 2));
-}
-
-// 👉 REGISTRO
-app.post("/register", (req, res) => {
-  const nuevoUsuario = req.body;
-  const usuarios = leerUsuarios();
-
-  const existe = usuarios.find(u => u.usuario === nuevoUsuario.usuario);
-  if (existe) {
-    return res.status(400).json({ error: "El usuario ya existe" });
-  }
-
-  usuarios.push(nuevoUsuario);
-  guardarUsuarios(usuarios);
-
-  res.json({ mensaje: "Usuario registrado con éxito" });
-});
-
-// 👉 LOGIN
-app.post("/login", (req, res) => {
-  const { usuario, password } = req.body;
-  const usuarios = leerUsuarios();
-
-  const user = usuarios.find(u => u.usuario === usuario && u.password === password);
-
-  if (!user) {
-    return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
-  }
-
-  const token = jwt.sign(
-    { usuario: user.usuario }, 
-    SECRET_KEY,
-    { expiresIn: "2h" }
-  );
-
-  res.json({
-    mensaje: "Login exitoso",
-    token,
-    usuario: {
-      nombre: user.nombre,
-      apellido: user.apellido,
-      email: user.email
-    }
-  });
-});
-
-// Servidor
-app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
-});
+// ----------------------------------------------------
+//  Servidor
+// ----------------------------------------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
+  console.log(`Servidor funcionando en http://localhost:${PORT}`)
+);

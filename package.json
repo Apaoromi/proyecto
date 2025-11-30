@@ -2,11 +2,7 @@
   "name": "proyecto",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
   "main": "app.js",
-=======
-  "main": "index.js",
->>>>>>> main
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,26 +13,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-<<<<<<< HEAD
-=======
-  "type": "commonjs",
->>>>>>> main
   "bugs": {
     "url": "https://github.com/Apaoromi/proyecto/issues"
   },
   "homepage": "https://github.com/Apaoromi/proyecto#readme",
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.3"
-=======
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
->>>>>>> main
   }
 }
